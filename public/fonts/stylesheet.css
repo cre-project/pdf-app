@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'Gotham';
+    src: local('Gotham-Book'),
+        url('hinted-Gotham-Book.woff2') format('woff2'),
+        url('hinted-Gotham-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Ebrima';
+    src: local('Ebrima'),
+        url('hinted-Ebrima.woff2') format('woff2'),
+        url('hinted-Ebrima.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Segoe Condensed';
+    src: local('Segoe Condensed Bold'), local('SegoeCondensed-Bold'),
+        url('hinted-SegoeCondensed-Bold.woff2') format('woff2'),
+        url('hinted-SegoeCondensed-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Segoe Condensed';
+    src: local('Segoe Condensed'), local('SegoeCondensed'),
+        url('hinted-SegoeCondensed.woff2') format('woff2'),
+        url('hinted-SegoeCondensed.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica Profi';
+    src: local('Helvetica Profi Regular'), local('HelveticaProfi-Regular'),
+        url('hinted-HelveticaProfi-Regular.woff2') format('woff2'),
+        url('hinted-HelveticaProfi-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

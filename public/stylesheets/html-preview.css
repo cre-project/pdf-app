@@ -1,0 +1,645 @@
+@media print {
+    body{
+        margin:0px;
+        background:transparent;
+    }
+    .page{
+        border:none !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+        clear: none !important;
+        margin:0px !important;
+    }
+    .image-upload{
+        display:none;
+    }
+    .photos .photo {
+        border: none !important;
+    }
+}
+.loader{
+    position: fixed;
+    font-size: 300px;
+    top: 50%;
+    left: 50%;
+    display: none ;
+    z-index: 1000;
+    height: 400px;
+    width: 400px;
+    line-height: 400px;
+    margin-left: -200px;
+    margin-top: -200px;
+}
+.no-letter-spacing{
+    letter-spacing: 0px !important;
+}
+
+.page{
+    page-break-after: always;
+    page-break-inside: avoid;
+    clear:both;
+    font-family: 'Ebrima';
+    font-weight: normal;
+    font-style: normal;
+    background-color: #ffffff;
+}
+.html-preview{
+    width: 11in;
+}
+.photos{
+    padding: 15px 0px 0px 60px;
+}
+.photos .photo{
+    padding: 2px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    width: 440px;
+    height: 330px;
+    margin: 10px;
+    border: 1px solid #c7c7c7;
+    border-style: dashed;
+}
+.photos .photo .background{
+    height: 100%;
+    width: 100%;
+}
+.photos .photo img{
+    max-width: 440px;
+    max-height: 330px;
+}
+.page{
+    width: 100%;
+    height: 8.5in;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    position: relative;
+}
+.page ol li{
+    padding: 5px 0px;
+}
+.page .title{
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 30px;
+    line-height: 30px;
+    background-color: rgba(0,0,0,0.8);
+    margin-top: 20px;
+    padding: 10px 0px 10px 20px;
+    letter-spacing: 6px;
+}
+.page .title.transparent{
+    background: none !important;
+    color: #000000;
+    padding-left: 20px;
+    letter-spacing: 0px;
+}
+.page .title.vertical{
+    text-align: center;
+    z-index: 5;
+    position: absolute;
+    width: 796px;
+    top: 363px;
+}
+.page .title.right{
+    transform: rotate(90deg);
+    right: -363px;
+}
+.page .title.left{
+    transform: rotate(-90deg);
+    left: -363px;
+}
+.page .background{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.page-1 .background{
+    background-image: url(../../images/Untitled.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.page-1 .header{
+    position: absolute;
+    width: 100%;
+    border-top: 1px solid #c7c7c7;
+    top: 40px;
+    z-index: 2;
+    font-size: 80%;
+}
+.page-1 .header .offering{
+    background-color: #c7c7c7;
+    color: #ffffff;
+    display: inline-block;
+    float: right;
+    letter-spacing: 3px;
+    padding: 5px 15px;
+}
+.page-1 .footer{
+    background-image: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.7), #ffffff);
+    height: 145px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    z-index: 2;
+}
+.page-1 .footer .headline{
+    letter-spacing: 3px;
+    font-size: 120%;
+    text-align: center;
+    padding: 30px 0px 15px 0px;
+}
+.page-1 .footer .subline{
+    font-size: 90%;
+    text-align: center;
+}
+.page-1 .footer .underline{
+    border-top: 1px solid #000000;
+    position: absolute;
+    height: 40px;
+    width: 100%;
+    bottom: 0px;
+    z-index: 2;
+
+}
+.page-2 .background{
+    background-image: url(../../images/Untitled_02.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.sidebar{
+    width: 25%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0,0,0,0.7);
+    color: #ffffff;
+}
+.sidebar.right{
+    border-right: 20px solid #c7c7c7;
+    border-left: 2px solid #ffffff;    
+    right: 0px;
+}
+.sidebar.left{
+    border-left: 20px solid #c7c7c7;
+    border-right: 2px solid #ffffff;    
+    left: 0px;
+}
+.sidebar .header{
+    margin-top: 80px;
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 18px;
+    line-height: 18px;
+    background-color: #424242;
+}
+.sidebar .address-num{
+    position: absolute;
+    height: 120px;
+    border-top: 2px solid #ffffff;
+    width: 100%;
+    font-size: 180%;
+    padding-top: 0px;
+    text-align: center;
+    top: 40px;
+    font-family: Ebrima;
+}
+.sidebar .address-str{
+    position: absolute;
+    width: 100%;
+    font-size: 120%;
+    text-align: center;
+    top: 160px;
+    height: 40px;
+}
+.sidebar .brand{
+    border-bottom: 2px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    top: 200px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 18px;
+    line-height: 18px;
+    background-color: #424242;
+}
+.sidebar .logo{
+    position: absolute;
+    bottom: 130px;
+    width: 100%;
+    text-align: center
+}
+.sidebar .logo .name{
+    font-size: 150%;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+.side-img{
+    background-image: url(../../images/Untitled_04.jpg);
+    width: 35%;
+    position: absolute;
+    right: 0px;
+    height: 100%;
+    z-index: 2;
+    border-left: 1px solid #ffffff;
+    top: 0px;
+}
+.page-3 .sidebar{
+    width: 65%;
+    height: 100%;
+    border-left: 20px solid #c7c7c7;
+    position: absolute;
+    left: 0px;
+    background: 
+        /* top, transparent red, faked with gradient */ 
+        linear-gradient(
+        rgba(0, 0, 0, 0.7), 
+        rgba(0, 0, 0, 0.7)
+        ),
+        /* bottom, image */
+        url(../../images/Untitled_03.jpg);
+    color: #ffffff;
+}
+.page-3 .sidebar .header{
+    margin-top: 60px;
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    width: 100%;
+    padding: 15px 0px;
+    letter-spacing: 3px;
+    background: transparent;
+}
+
+.page-3 .sidebar .header .title{
+    padding: 10px 0px;
+}
+
+.page-3 .sidebar .title{
+    border-bottom: 2px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    padding: 0px 0px;
+    background-color: #424242;
+    margin-top: 0px;
+}
+.page-3 .left-column{
+    width: 55%;
+    text-align: right;
+    display: inline-block;
+    padding-right: 20px;
+    font-size: 130%;
+}
+.page-3 .toc-list{
+    list-style: none;
+    padding: 0px;
+}
+.page-3 .toc-list li{
+    padding: 17px 0px;
+}
+.page-3 .toc-page-num{
+    font-weight: bold;
+    font-size: 170%;
+}
+.page-6 .background{
+    background-image: url(../../images/Untitled_05.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.page-8 .background{
+    background-image: url(../../images/Untitled_07.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.page-9 .background{
+    background-image: url(../../images/Untitled_03.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.map-holder{
+    height: 100%;
+    width: 72%;
+    white-space: nowrap;
+    text-align: center;
+    margin: 1em 0;
+}
+.map-holder.right{
+    float: right;
+}
+.map-holder .helper {
+    display: inline-block;
+    height: 10%;
+    vertical-align: middle;
+}
+.map-holder img{
+    max-height: 90%;
+    max-width: 90%;
+    display:block;
+    margin:auto;
+    vertical-align: middle;
+}
+.sales-items{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 0px 20px;
+
+}
+.sales-items .item{
+    width: 31%;
+}
+.sales-items .item .address{
+    text-align: center
+}
+.sales-items .item img{
+    width: 100%;
+}
+.sales-items .item ul{
+    padding: 0px;
+}
+.sales-items .item ul li{
+    line-height: 17px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 11px;
+    list-style: none;
+    font-size: 14px;
+    padding-left: 10px;
+}
+.sales-items .item ul li:nth-child(odd){
+    background-color: #c7c7c7;
+}
+.page-10 .background {
+    background-image: url(../../images/Untitled.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+.page-11 .background{
+    background-image: url(../../images/Untitled_03.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.comparables-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 20px 0px 20px;
+    height: 7.1in;
+}
+.comparables-items .item{
+    width: 100%;
+    height: 2.2in;
+}
+.comparables-items .address{
+    margin-left: 250px;
+    background-color: #c7c7c7;
+}
+.comparables-items .item img{
+    max-height: 100%;
+    float: left;
+    max-width: 240px; 
+}
+.page-12 .background{
+    background-image: url(../../images/Untitled_10.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.rent-rolls{
+    width: 100%;
+    padding: 20px 20px 0px 20px;
+    border-spacing: 0;
+}
+.rent-rolls.bottom{
+    position: absolute;
+    bottom: 40px;
+}
+.rent-rolls th{
+    min-width: 19%;
+    text-align: left;
+}
+.rent-rolls tr:nth-child(odd){
+    background-color: #c7c7c7;
+}
+.rent-rolls tr td{
+    padding: 2px 10px 2px 10px;
+    font-size: 11px;
+    line-height: 13px;
+}
+.rent-rolls thead tr:nth-child(odd){
+    background-color: transparent;;
+}
+.hint.small{
+    padding-top: 15px;
+    padding-left: 20px;
+    font-size: 9px;
+}
+.page-14 .background{
+    background-image: url(../../images/Untitled_11.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.page-15 .background{
+    background-image: url(../../images/Untitled_02.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.image-upload{
+    position: absolute;
+    height: 120px;
+    width: 120px;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -60px;
+    border: 2px solid #000000;
+    background-size: cover;
+    background-color: #ffffff;
+    font-size: 70px;
+    line-height: 70px;
+    text-align: center;
+    border-radius: 15px;
+}
+.image-upload:hover{
+    cursor: pointer;
+    color: #4d9ee1;
+}
+.image-upload:focus{
+    outline: none;
+}
+.img-inputer{
+    display: none;
+}
+
+.financial-holder {
+    width: 100%;
+    overflow: hidden; /* add this to contain floated children */
+    height: calc(100% - 70px);
+    padding-top: 40px;
+}
+.financial-left{
+    width: 50%;
+    float:left;
+    height: 100%;
+}
+.financial-right {
+    width: 50%;
+    float: left;
+    height: 100%;
+}
+
+.financial-holder{
+    font-size: 80%;   
+}
+.financial-holder table{
+    width: 100%;
+    border-spacing: 0;
+}
+.financial-holder table tr{
+    line-height: 20px;
+}
+.financial-holder .table-title{
+    border-bottom: 1px solid #000000;
+    margin-right: 20px;
+}
+.financial-holder th{
+    text-align: left
+}
+.financial-holder tr.highlighted{
+    background-color: #c7c7c7;
+}
+.financial-holder th.first{
+    min-width: 50%;
+}
+.financial-holder .overview{
+    padding-left: 20px;
+}
+.financial-holder .details{
+    padding-right: 20px;
+}
+.financial-holder table .devider{
+    padding-bottom: 60px;
+}
+.rent-data{
+    padding-top: 10px;
+    margin-left: 250px;
+}
+.rent-data table{
+    width: 100%;
+    text-align: center;
+    border-spacing: 0px;
+}
+.rent-data table td{
+    border-bottom: 1px solid #000000;
+}
+.rent-data .left{
+    vertical-align: top;
+    display: inline-block;
+    width: 200px;
+    font-weight: bold;
+}
+.item-list{
+    font-weight: bold;
+}
+.item-list .data-right{
+    font-weight: normal;
+}
+.rent-data .right{
+    display: inline-block;
+    width: 560px;
+}
+.tnou{
+    padding: 40px 0px 40px 20px;
+    font-size: 80%;
+    line-height: 20px;
+}
+.income-and-expenses{
+    padding: 0px 20px;
+    width: 100%;
+    font-size: 80%;
+    line-height: 20px;
+    text-align: left;
+    border-spacing: 0px;
+}
+.income-and-expenses tr.highlighted{
+    background-color: #c7c7c7;
+}
+.income-and-expenses tr td {
+    width: 33%;
+}
+.page-18 .background{
+    background-image: url(../../images/Untitled_07.jpg);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+}
+.property-information{
+    padding: 70px 20px 0px 20px;
+    width: 65%;
+    text-align: left;
+    font-size: 120%;
+    line-height: 40px;
+}
+.property-information .bold{
+    font-weight: bold;
+    padding-left: 40px;
+}
+.data-right{
+    display: inline-block;
+    float: right;
+    margin-right: 15px;
+}
+#savePDFbutton{
+    background-color: #4d9ee1;
+    font-size: 20px;
+    line-height: 40px;
+    border: 2px solid #1b88e2;
+    border-radius: 15px;
+    padding: 0px 20px;
+    cursor: pointer;
+}

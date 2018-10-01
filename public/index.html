@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="./stylesheets/html-preview.css">
+        <link rel="stylesheet" type="text/css" href="./fonts/stylesheet.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+        <title>CRE</title>
+    </head>
+    <body>
+        <header style="padding: 40px 250px; margin-bottom: 20px;">
+            <div class="loader"> <i class="fas fa-spinner fa-spin"></i></div>
+            <button id="savePDFbutton" class="hide-on-save" onclick="savePDF()">
+                Download PDF
+            </button>
+        </header>
+        <div class="html-preview" style="margin-left: 250px;">
+            <section id="testPage" class="page page-1">
+                <div id="page-1" class="background">
+                    <button class="image-upload hide-on-save" data-target="page-1"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="page-1" class="img-inputer"/>
+                    <div class="header">
+                        <div class="offering letter-spacer">OFFERING MEMORANDUM</div>
+                    </div>
+                    <div class="footer">
+                        <div class="headline letter-spacer">
+                            {{ valuation.property.address + ' ' + valuation.property.city }}
+                        </div>
+                        <div class="subline">
+                            Built in {{ valuation.property.yearBuilt }}
+                        </div>
+                        <div class="underline">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="page page-2">
+                <div id="page-2" class="background">
+                    <button class="image-upload hide-on-save" data-target="page-2"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="page-2" class="img-inputer"/>
+                    <div class="sidebar right">
+                        <div class="address-num">
+                            {{ valuation.property.address }}
+                        </div>
+                        <div class="address-str">
+                            {{ valuation.property.city }}
+                        </div>
+                        <div class="brand">
+                            {{ user.companyName }}
+                        </div>
+                        <div class="logo">
+                            <div class="name">{{ user.firstName + ' ' + user.lastName }}</div>
+                            <div class="email">{{ user.email }}</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="page page-3">
+                <div id="page-3" class="background">
+                    <button class="image-upload hide-on-save" data-target="page-3"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="page-3" class="img-inputer"/>
+                    <div class="sidebar">
+                        <div class="header">
+                            <div class="title">
+                                <div class="letter-spacer">TABLE OF CONTENTS</div>
+                            </div>
+                        </div>
+                        <ul class="toc-list">
+                            <li style="display: none;"><div class="left-column">FIRM INFORMATION </div><span class="toc-page-num">4</span></li>
+                            <li style="display: none;"><div class="left-column">AGENT BIO </div><span class="toc-page-num">5</span></li>
+                            <li><div class="left-column">PROPERTY INFORMATION </div><span class="toc-page-num">4</span></li>
+                            <li><div class="left-column">PROPERTY PHOTOS </div><span class="toc-page-num">6</span></li>
+                            <li><div class="left-column">RECENT SALES </div><span class="toc-page-num">8</span></li>
+                            <li><div class="left-column">RENT COMPARABLES </div><span class="toc-page-num">11</span></li>
+                            <li><div class="left-column">PRICING AND FINANCIAL ANALYSIS </div><span class="toc-page-num">14</span></li>
+                        </ul>
+                    </div>
+                    <div id="side-img" class="background side-img">
+                        <button class="image-upload hide-on-save" data-target="side-img"><i class="fas fa-camera"></i></button>
+                        <input type="file" name="side-img" class="img-inputer"/>
+                    </div>
+                </div>
+            </section>
+            <!--            <section class="page page-4" style="display: none;">
+                            <div class="vertical title right">FIRM INFORMATION</div>
+                        </section>
+                        <section class="page page-5" style="display: none;">
+                            <div class="vertical title right">AGENT BIO</div>
+                        </section>-->
+            <section class="page page-18">
+                <div class="vertical title left letter-spacer">PROPERTY INFORMATION</div>
+                <div id="page-17" class="background">
+                    <button class="image-upload hide-on-save" data-target="page-17"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="page-17" class="img-inputer"/>
+                </div>
+            </section>
+            <section class="page page-19">
+                <div class="title letter-spacer">PROPERTY INFORMATION</div>
+                <div class="property-information">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Property Address</td>
+                                <td class="bold">{{ valuation.property.address }}</td>
+                            </tr>
+                            <tr>
+                                <td>Property City</td>
+                                <td class="bold">{{ valuation.property.city }}</td>
+                            </tr>
+                            <tr>
+                                <td>Property State</td>
+                                <td class="bold">{{ valuation.property.state }}</td>
+                            </tr>
+                            <tr>
+                                <td>Property Zip</td>
+                                <td class="bold">{{ valuation.property.zip }}</td>
+                            </tr>
+                            <tr>
+                                <td>Number of Stories</td>
+                                <td class="bold">{{ valuation.property.numberOfStories }}</td>
+                            </tr>
+                            <tr>
+                                <td>Year Built</td>
+                                <td class="bold">{{ valuation.property.yearBuilt }}</td>
+                            </tr>
+                            <tr>
+                                <td>Lot Size</td>
+                                <td class="bold">{{ valuation.property.lotSize }}</td>
+                            </tr>
+                            <tr>
+                                <td>APN</td>
+                                <td class="bold">{{ valuation.property.apn }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="side-img-2" class="background side-img">
+                    <button class="image-upload hide-on-save" data-target="side-img-2"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="side-img-2" class="img-inputer"/>
+                </div>
+            </section>
+
+            <section class="page page-6">
+                <div class="vertical title right letter-spacer">PROPERTY PHOTOS</div>
+                <div id="page-6" class="background">
+                    <button class="image-upload hide-on-save" data-target="page-6"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="page-6" class="img-inputer"/>
+                </div>
+            </section>
+            <section class="page page-7">
+                <div class="title letter-spacer">PROPERTY PHOTOS</div>
+                <div class="photos">
+                    <div class="photo">
+                        <div id="photo-1" class="background"></div>
+                        <button class="image-upload hide-on-save" data-target="photo-1"><i class="fas fa-camera"></i></button>
+                        <input type="file" name="photo-1" class="img-inputer"/>
+                    </div>
+                    <div class="photo">
+                        <div id="photo-2" class="background"></div>
+                        <button class="image-upload hide-on-save" data-target="photo-2"><i class="fas fa-camera"></i></button>
+                        <input type="file" name="photo-2" class="img-inputer"/>
+                    </div>
+                    <div class="photo">
+                        <div id="photo-3" class="background"></div>
+                        <button class="image-upload hide-on-save" data-target="photo-3"><i class="fas fa-camera"></i></button>
+                        <input type="file" name="photo-3" class="img-inputer"/>
+                    </div>
+                    <div class="photo">
+                        <div id="photo-4" class="background"></div>
+                        <button class="image-upload hide-on-save" data-target="photo-4"><i class="fas fa-camera"></i></button>
+                        <input type="file" name="photo-4" class="img-inputer"/>
+                    </div>
+                </div>
+            </section>
+            <section class="page page-8">
+                <div class="vertical title left letter-spacer">RECENT SALES</div>
+                <div id="page-8" class="background">
+                    <button class="image-upload hide-on-save" data-target="page-8"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="page-8" class="img-inputer"/>
+                </div>
+            </section>
+            <section class="page page-9">
+                <div class="background">
+                    <div class="sidebar right">
+                        <div class="header">
+                            RECENT SALES
+                        </div>
+                        <ol>
+                            {% for comp in valuation.salesComps %}
+                            <li>{{ comp.address }}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                    <div class="map-holder">
+                        <span class="helper"></span>
+                        <img src="./images/Untitled_08.jpg">
+                    </div>
+                </div>
+            </section>
+            <section class="page sales-slide">
+                <div class="title transparent">RECENT SALES</div>
+                <div class="sales-items">
+                    {% for comp in valuation.salesComps %}
+                    <div class="item">
+                        <img src="./images/Untitled_09.jpg">
+                        <div class="address">{{ comp.address + ' ' + comp.city }}</div>
+                        <ul class="item-list">
+                            <li>No. of Units: <div class="data-right">{{ comp.numUnits }}</div></li>
+                            <li>Year Built: <div class="data-right">{{ comp.yearBuilt }}</div></li>
+                            <li>Sale Price: <div class="data-right">{{ comp.salesPrice }}</div></li>
+                            <li>Price/Unit: <div class="data-right">{{ comp.pricePerUnit }}</div></li>
+                            <li>Price/SF: <div class="data-right">{{ comp.pricePerSf }}</div></li>
+                            <li>CAP Rate: <div class="data-right">{{ comp.capRate }}</div></li>
+                            <li>GRM: <div class="data-right">{{ comp.grm }}</div></li>
+                            <li>Close of Escrow: <div class="data-right">{{ comp.closeOfEscrow }}</div></li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <section class="page page-10">
+                <div class="vertical title right letter-spacer">RENT COMPARABLES</div>
+                <div id="page-10" class="background">
+                    <button class="image-upload hide-on-save" data-target="page-10"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="page-10" class="img-inputer"/>
+                </div>
+            </section>
+            <section class="page page-11">
+                <div class="background">
+                    <div class="sidebar left">
+                        <div class="header">
+                            RENT COMPARABLES
+                        </div>
+                        <ol>
+                            {% for comp in valuation.rentComps %}
+                            <li>{{ comp.address }}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                    <div class="map-holder right">
+                        <span class="helper"></span>
+                        <img src="./images/Untitled_08.jpg">
+                    </div>
+                </div>
+            </section>
+            <section class="page sales-slide">
+                <div class="title transparent">RENT COMPARABLES</div>
+                <div class="comparables-items">
+                    {% for comp in valuation.rentComps %}
+                    <div class="item">
+                        <img src="./images/Untitled_09.jpg">
+                        <div>
+                            <div class="address"> ADDRESS: {{ comp.address + ' ' + comp.city }}</div>
+                            <div class="rent-data">
+                                <div class="left">
+                                    Year Built: {{ comp.yearBuilt }}
+                                </div>
+                                <div class="right">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <th>Unit Type</th>
+                                                <th>Rent</th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ comp.type }} bed, {{ comp.bathroom }} bath</td>
+                                                <td>{{ comp.rent }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <section class="page page-12">
+                <div class="vertical title right letter-spacer">PRICING AND FINANCIAL ANALYSIS</div>
+                <div id="page-12" class="background">
+                    <button class="image-upload hide-on-save" data-target="page-12"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="page-12" class="img-inputer"/>
+                </div>
+            </section>
+            <section class="page page-13">
+                <div class="title transparent">RENT ROLL</div>
+                <table class="rent-rolls" >
+                    <thead>
+                        <tr>
+                            <th>Unit Number</th>
+                            <th>Unit Type</th>
+                            <th>Unit SF</th>
+                            <th>Current Rent</th>
+                            <th>Asking Rent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for unit in valuation.units %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ unit.bedrooms }} bed, {{ unit.bathrooms }} bath</td>
+                            <td>{{ unit.squareFeet }}</td>
+                            <td>{{ unit.currentRent }}</td>
+                            <td>{{ unit.potentialRent }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+            <section class="page page-17">
+                <div class="title transparent">INCOME AND EXPENSES</div>
+                <div class="tnou">Total Number of Units: {{ valuation.units | length }}</div>
+                <table class="income-and-expenses" >
+                    <thead>
+                        <tr>
+                            <th>Income</th>
+                            <th>Current</th>
+                            <th>Pro Forma</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlighted">
+                            <td>GROSS POTENTIAL RENT</td>
+                            <td>{{ valuation.statementCurrent.grossRent }}</td>
+                            <td>{{ valuation.statementPotential.grossRent }}</td>
+                        </tr>
+                        <tr>
+                            <td>Vacancy/Collection Allowance (GPR) ({{ valuation.vacancy }}%)</td>
+                            <td>{{ valuation.statementCurrent.vacancy }}</td>
+                            <td>{{ valuation.statementPotential.vacancy }}</td>
+                        </tr>
+                        <tr>
+                            <td>EFFECTIVE RENTAL INCOME</td>
+                            <td>{{ valuation.statementCurrent.effectiveRent }}</td>
+                            <td>{{ valuation.statementPotential.effectiveRent }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Other Income</td>
+                            <td>{{ valuation.statementCurrent.otherIncome }}</td>
+                            <td>{{ valuation.statementPotential.otherIncome }}</td>
+                        </tr>
+                        <tr class="highlighted">
+                            <td>EFFECTIVE GROSS INCOME</td>
+                            <td>{{ valuation.statementCurrent.effectiveGrossIncome }}</td>
+                            <td>{{ valuation.statementPotential.effectiveGrossIncome }}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="highlighted">
+                            <td>Expenses</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Real Estate Taxes ({{ valuation.taxes }}%)</td>
+                            <td>{{ taxes }}</td>
+                            <td>{{ taxes }}</td>
+                        </tr>
+                        <tr>
+                            <td>Insurance</td>
+                            <td>{{ valuation.statementCurrent.expenses.insurance }}</td>
+                            <td>{{ valuation.statementPotential.expenses.insurance }}</td>
+                        </tr>
+                        <tr>
+                            <td>Utilities - Electric</td>
+                            <td>{{ valuation.statementCurrent.expenses.electric}}</td>
+                            <td>{{ valuation.statementPotential.expenses.electric }}</td>
+                        </tr>
+                        <tr>
+                            <td>Utilities - Water & Sewer</td>
+                            <td>{{ valuation.statementCurrent.expenses.water }}</td>
+                            <td>{{ valuation.statementPotential.expenses.water }}</td>
+                        </tr>
+                        <tr>
+                            <td>Garbage</td>
+                            <td>{{ valuation.statementCurrent.expenses.garbage }}</td>
+                            <td>{{ valuation.statementPotential.expenses.garbage }}</td>
+                        </tr>
+                        <tr>
+                            <td>Repairs & Maintenance</td>
+                            <td>{{ valuation.statementCurrent.expenses.maintencance }}</td>
+                            <td>{{ valuation.statementPotential.expenses.maintenance }}</td>
+                        </tr>
+                        <tr>
+                            <td>Management Fee</td>
+                            <td>{{ valuation.statementCurrent.mgmtFee }}</td>
+                            <td>{{ valuation.statementPotential.mgmtFee }}</td>
+                        </tr>
+                        <tr>
+                            <td>Landscaping</td>
+                            <td>{{ valuation.statementCurrent.expenses.landscaping }}</td>
+                            <td>{{ valuation.statementPotential.expenses.landscaping }}</td>
+                        </tr>
+                        <tr>
+                            <td>Other Expenses</td>
+                            <td>{{ valuation.statementCurrent.expenses.other }}</td>
+                            <td>{{ valuation.statementPotential.expenses.other }}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>TOTAL EXPENSES</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="highlighted">
+                            <td>&nbsp;</td>
+                            <td>{{ valuation.statementCurrent.totalExpenses }}</td>
+                            <td>{{ valuation.statementPotential.totalExpenses }}</td>
+                        </tr>
+                        <tr>
+                            <td>NET OPERATING INCOME</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>{{ valuation.statementPotential.netOperatingIncome }}</td>
+                            <td>{{ valuation.statementPotential.netOperatingIncome }}</td>
+                        </tr>
+                        <tr class="highlighted">
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </section>
+            <section class="page page-16">
+                <div class="title transparent">FINANCIAL OVERVIEW</div>
+                <div class="financial-holder">
+                    <div class="financial-left">
+                        <table class="overview">
+                            <tbody>
+                                <tr>
+                                    <td>LOCATION</td>
+                                    <td>{{ valuation.property.zip if valuation.property.zip !== null else ''}} {{  + valuation.property.city if valuation.property.city !== null else ''}} {{ valuation.property.state if valuation.property.state !== null else '' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="devider">ADDRESS</td>
+                                    <td>{{ valuation.property.address }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Price</td>
+                                    <td>{{ valuation.price }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of Units</td>
+                                    <td>{{ valuation.units | length }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Price/Unit</td>
+                                    <td>$ {{ pricePerUnit }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Gross Square Feet</td>
+                                    <td>{{ totalSqFt }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Price/SF</td>
+                                    <td>$ {{ pricePerSf }}</td>
+                                </tr>
+                                <tr>
+                                    <td>CAP Rate - Current</td>
+                                    <td>{{ stats.currentCapRate }}</td>
+                                </tr>
+                                <tr>
+                                    <td>CAP Rate - Pro Forma</td>
+                                    <td>{{ stats.potentialCapRate }}</td>
+                                </tr>
+                                <tr>
+                                    <td>GRM - Current</td>
+                                    <td>{{ stats.currentGrm }}</td>
+                                </tr>
+                                 <tr>
+                                    <td>GRM - Pro Forma</td>
+                                    <td>{{ stats.potentialGrm }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Year Built</td>
+                                    <td>{{ valuation.property.yearBuilt }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Lot Size</td>
+                                    <td>{{ valuation.property.lotSize }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="financial-right">
+                        <div class="table-title">
+                            Annualized Operating Data
+                        </div>
+                        <table class="details">
+                            <tbody>
+                                <tr>
+                                    <th class="first">Income</th>
+                                    <th>Current</th>
+                                    <th>Pro Forma</th>
+                                </tr>
+                                <tr class="highlighted">
+                                    <td>Gross Potential Rent</td>
+                                    <td>{{ valuation.statementPotential.grossRent }}</td>
+                                    <td>{{ valuation.statementPotential.grossRent }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Less: Vacancy/Deductions</td>
+                                    <td>{{ valuation.statementCurrent.vacancy }}</td>
+                                    <td>{{ valuation.statementPotential.vacancy }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Gross Potential Income</td>
+                                    <td>{{ valuation.statementCurrent.effectiveRent }}</td>
+                                    <td>{{ valuation.statementPotential.effectiveRent }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Other Income</td>
+                                    <td>{{ valuation.statementCurrent.otherIncome }}</td>
+                                    <td>{{ valuation.statementPotential.otherIncome }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Effective Gross Income</td>
+                                    <td>{{ valuation.statementCurrent.effectiveGrossIncome }}</td>
+                                    <td>{{ valuation.statementPotential.potentialGrossIncome }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Less: Expenses</td>
+                                    <td>{{ valuation.statementCurrent.totalExpenses }}</td>
+                                    <td>{{ valuation.statementPotential.totalExpenses }}</td>
+                                </tr>
+                                <tr class="highlighted">
+                                    <td>Net Operating Income</td>
+                                    <td>{{ valuation.statementCurrent.netOperatingIncome }}</td>
+                                    <td>{{ valuation.statementPotential.netOperatingIncome }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="table-title">
+                            Expenses
+                        </div>
+                        <table class="details">
+                            <tbody>
+                                <tr>
+                                    <td>Real Estate Taxes</td>
+                                    <td>{{ valuation.taxes }}</td>
+                                    <td>{{ valuation.taxes }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Insurance</td>
+                                    <td>{{ valuation.statementCurrent.expenses.insurance }}</td>
+                                    <td>{{ valuation.statementPotential.expenses.insurance }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Utilities - Electric</td>
+                                    <td>{{ valuation.statementCurrent.expenses.electric}}</td>
+                                    <td>{{ valuation.statementPotential.expenses.electric }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Utilities - Water & Sewer</td>
+                                    <td>{{ valuation.statementCurrent.expenses.water }}</td>
+                                    <td>{{ valuation.statementPotential.expenses.water }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Garbage</td>
+                                    <td>{{ valuation.statementCurrent.expenses.garbage }}</td>
+                                    <td>{{ valuation.statementPotential.expenses.garbage }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Repairs & Maintenance</td>
+                                    <td>{{ valuation.statementCurrent.expenses.maintencance }}</td>
+                                    <td>{{ valuation.statementPotential.expenses.maintenance }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Management Fee</td>
+                                    <td>{{ valuation.statementCurrent.mgmtFee }}</td>
+                                    <td>{{ valuation.statementPotential.mgmtFee }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Landscaping</td>
+                                    <td>{{ valuation.statementCurrent.expenses.landscaping }}</td>
+                                    <td>{{ valuation.statementPotential.expenses.landscaping }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="devider">Other Expenses</td>
+                                    <td>{{ valuation.statementCurrent.expenses.other }}</td>
+                                    <td>{{ valuation.statementPotential.expenses.other }}</td>
+                                </tr>
+                                <tr  class="highlighted">
+                                    <td>Total Expenses</td>
+                                    <td>{{ valuation.statementCurrent.totalExpenses }}</td>
+                                    <td>{{ valuation.statementPotential.totalExpenses }}</td>
+                                </tr>
+                                <tr  class="highlighted">
+                                    <td>Expenses/unit</td>
+                                    <td>{{ valuation.statementCurrent.totalExpensesUnit }}</td>
+                                    <td>{{ valuation.statementPotential.totalExpensesUnit }}</td>
+                                </tr>
+                                <tr class="highlighted">
+                                    <td>Expenses/SF</td>
+                                    <td>{{ valuation.statementCurrent.totalExpensesSf }}</td>
+                                    <td>{{ valuation.statementPotential.totalExpensesSf }}</td>
+                                </tr>
+                                <tr  class="highlighted">
+                                    <td>&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page page-14">
+                <div id="page-14" class="background">
+                    <button class="image-upload hide-on-save" data-target="page-14"><i class="fas fa-camera"></i></button>
+                    <input type="file" name="page-14" class="img-inputer"/>
+                </div>
+            </section>
+            <!--            <section class="page page-15">
+                            <div id="page-15" class="background">
+                                <button class="image-upload hide-on-save" data-target="page-15"><i class="fas fa-camera"></i></button>
+                                <input type="file" name="page-15" class="img-inputer"/>
+                                <div class="sidebar right">
+                                    <div class="address-num">
+                                        1267
+                                    </div>
+                                    <div class="address-str">
+                                        LAUREL AVENUE
+                                    </div>
+                                    <div class="brand">
+                                        MARCUS & MILLICHAP
+                                    </div>
+                                    <div class="logo">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>-->
+        </div>
+        <script src='./javascripts/html-preview.js'></script>
+    </body>
+</html>
