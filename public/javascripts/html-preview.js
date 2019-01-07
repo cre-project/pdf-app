@@ -68,18 +68,17 @@ function toggle(className, displayState) {
     }
 }
 
-function addPageAndCanvas() {
-    doc.addHTML(sections[tempPage], function () {
+async function addPageAndCanvas() {
+    doc.addHTML(sections[tempPage], async function () {
         if (tempPage < sections.length - 1) {
             doc.addPage();
             tempPage++;
             addPageAndCanvas();
         } else {
-            setTimeout(function () {
-                doc.save('filename.pdf');
-                changeCSS('html-preview.css', 0);
-                removeSpacing(needSpacing);
-            }, 2000)
+            await sleep(2000);
+            doc.save('valuation.pdf');
+            changeCSS('html-preview.css', 0);
+            removeSpacing(needSpacing);
             toggle('hide-on-save', 'block');
             toggle('loader', 'none');
         }
@@ -100,7 +99,10 @@ function downloadPDF() {
     doc.save('sample-file1.pdf');
 }
 
-
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
 for (var i = 0; i < imgButtons.length; ++i) {
     imgButtons[i].addEventListener("click", function (button) {
         selectElementImage(this)
