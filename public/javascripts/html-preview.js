@@ -1,9 +1,21 @@
-var doc = new jsPDF('l', 'in', [8.5, 11]);
+var doc = new jsPDF('l', 'in', [17, 22]);
 var sections = document.getElementsByTagName("SECTION");
 var tempPage = 0;
 var imgButtons = document.getElementsByClassName("image-upload");
 var imgInputs = document.getElementsByTagName("input");
 var needSpacing = document.getElementsByClassName('letter-spacer');
+
+function changeCSS(cssFile, cssLinkIndex) {
+
+    var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+    var newlink = document.createElement("link");
+
+    newlink.setAttribute("rel", "stylesheet");
+    newlink.setAttribute("type", "text/css");
+    newlink.setAttribute("href", `./stylesheets/${cssFile}`);
+
+    document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+}
 
 function selectElementImage(button) {
     var input = document.getElementsByName(button.getAttribute("data-target"))[0];
@@ -63,8 +75,11 @@ function addPageAndCanvas() {
             tempPage++;
             addPageAndCanvas();
         } else {
-            doc.save('filename.pdf');
-            removeSpacing(needSpacing);
+            setTimeout(function () {
+                doc.save('filename.pdf');
+                changeCSS('html-preview.css', 0);
+                removeSpacing(needSpacing);
+            }, 2000)
             toggle('hide-on-save', 'block');
             toggle('loader', 'none');
         }
@@ -72,10 +87,11 @@ function addPageAndCanvas() {
 }
 
 function savePDF() {
+    toggle('loader', 'block');
     tempPage = 0;
     toggle('hide-on-save', 'none');
-    toggle('loader', 'block');
-    doc = new jsPDF('l', 'in', [8.5, 11]);
+    doc = new jsPDF('l', 'in', [17, 22]);
+    changeCSS('pdf-render.css', 0);
     addSpacing(needSpacing);
     addPageAndCanvas();
 }

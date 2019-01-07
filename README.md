@@ -8,6 +8,7 @@
     FIREBASE_PROJECT_ID,
     FIREBASE_DB_URL
 ```
-2) run `DEBUG=app:* npm start`
-3) application will run on port 3000
-4) go to `http://localhost:3000/{"valuationId": "valuationId", "userId": "userId"}`
+2) run `npm install`
+3) run `DEBUG=app:* npm start`
+4) application will run on port 3000
+5) go to `http://localhost:3000/{"valuationId": "valuationId", "userId": "userId"}`

@@ -17,6 +17,9 @@
         border: none !important;
     }
 }
+html{
+    font-size: 200%;
+}
 .no-letter-spacing{
     letter-spacing: 0px !important;
 }
@@ -31,20 +34,20 @@
     background-color: #ffffff;
 }
 .html-preview{
-    width: 11in;
+    width: 22in;
 }
 .photos{
-    padding: 15px 0px 0px 60px;
+    padding: 30px 0px 0px 120px;
 }
 .photos .photo{
-    padding: 2px;
+    padding: 4px;
     display: inline-block;
     text-align: center;
     position: relative;
-    width: 440px;
-    height: 330px;
-    margin: 10px;
-    border: 1px solid #c7c7c7;
+    width: 880px;
+    height: 660px;
+    margin: 20px;
+    border: 2px solid #c7c7c7;
     border-style: dashed;
 }
 .photos .photo .background{
@@ -52,53 +55,53 @@
     width: 100%;
 }
 .photos .photo img{
-    max-width: 440px;
-    max-height: 330px;
+    max-width: 880px;
+    max-height: 660px;
 }
 section{
     background-color: #ffffff;
 }
 .page{
     width: 100%;
-    height: 8.5in;
+    height: 17in;
     margin-bottom: 15px;
-    border: 1px solid #000000;
+    border: 2px solid #000000;
     position: relative;
 }
 .page ol li{
-    padding: 5px 0px;
+    padding: 10px 0px;
 }
 .page .title{
     color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 30px;
-    line-height: 30px;
-    background-color: rgba(0,0,0,0.8);
-    margin-top: 20px;
-    padding: 10px 0px 10px 20px;
     letter-spacing: 6px;
+    font-size: 60px;
+    line-height: 60px;
+    background-color: rgba(0,0,0,0.8);
+    margin-top: 40px;
+    padding: 20px 0px 20px 40px;
+    letter-spacing: 12px;
 }
 .page .title.transparent{
     background: none !important;
     color: #000000;
-    padding-left: 20px;
+    padding-left: 40px;
     letter-spacing: 0px;
 }
 .page .title.vertical{
     text-align: center;
     z-index: 5;
     position: absolute;
-    width: 796px;
-    top: 363px;
+    width: 1632px;
+    top: 736px;
 }
 .page .title.right{
     transform: rotate(90deg);
-    right: -363px;
+    right: -726px;
 }
 .page .title.left{
     transform: rotate(-90deg);
-    left: -363px;
+    left: -715px;
 }
 .page .background{
     background-size: cover;
@@ -117,8 +120,8 @@ section{
 .page-1 .header{
     position: absolute;
     width: 100%;
-    border-top: 1px solid #c7c7c7;
-    top: 40px;
+    border-top: 2px solid #c7c7c7;
+    top: 80px;
     z-index: 2;
     font-size: 80%;
 }
@@ -127,31 +130,31 @@ section{
     color: #ffffff;
     display: inline-block;
     float: right;
-    letter-spacing: 3px;
-    padding: 5px 15px;
+    letter-spacing: 6px;
+    padding: 20px 30px;
 }
 .page-1 .footer{
     background-image: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.7), #ffffff);
-    height: 145px;
+    height: 290px;
     width: 100%;
     position: absolute;
     bottom: 0px;
     z-index: 2;
 }
 .page-1 .footer .headline{
-    letter-spacing: 3px;
+    letter-spacing: 6px;
     font-size: 120%;
     text-align: center;
-    padding: 30px 0px 15px 0px;
+    padding: 60px 0px 30px 0px;
 }
 .page-1 .footer .subline{
     font-size: 90%;
     text-align: center;
 }
 .page-1 .footer .underline{
-    border-top: 1px solid #000000;
+    border-top: 2px solid #000000;
     position: absolute;
-    height: 40px;
+    height: 80px;
     width: 100%;
     bottom: 0px;
     z-index: 2;
@@ -173,34 +176,34 @@ section{
     background-color: rgba(0,0,0,0.7);
     color: #ffffff;
 }
-.sidebar.right{   
-    border-left: 2px solid #ffffff;    
+.sidebar.right{
+    border-left: 4px solid #ffffff;    
     right: 0px;
 }
 .sidebar.left{
-    border-right: 2px solid #ffffff;    
+    border-right: 4px solid #ffffff;    
     left: 0px;
 }
 .sidebar .header{
-    margin-top: 80px;
+    margin-top: 160px;
     border-top: 2px solid #ffffff;
-    border-bottom: 2px solid #ffffff;
+    border-bottom: 4px solid #ffffff;
     width: 100%;
     text-align: center;
-    padding: 10px 0px;
-    font-size: 18px;
-    line-height: 18px;
+    padding: 20px 0px;
+    font-size: 36px;
+    line-height: 36px;
     background-color: #424242;
 }
 .sidebar .address-num{
     position: absolute;
-    height: 120px;
-    border-top: 2px solid #ffffff;
+    height: 240px;
+    border-top: 4px solid #ffffff;
     width: 100%;
-    font-size: 180%;
+    font-size: 615%;
     padding-top: 0px;
     text-align: center;
-    top: 40px;
+    top: 80px;
     font-family: Ebrima;
 }
 .sidebar .address-str{
@@ -208,31 +211,31 @@ section{
     width: 100%;
     font-size: 120%;
     text-align: center;
-    top: 160px;
-    height: 40px;
+    top: 320px;
+    height: 80px;
 }
 .sidebar .brand{
-    border-bottom: 2px solid #ffffff;
-    border-top: 2px solid #ffffff;
-    top: 200px;
+    border-bottom: 4px solid #ffffff;
+    border-top: 4px solid #ffffff;
+    top: 400px;
     position: absolute;
     width: 100%;
     text-align: center;
-    padding: 10px 0px;
-    font-size: 18px;
-    line-height: 18px;
+    padding: 20px 0px;
+    font-size: 36px;
+    line-height: 36px;
     background-color: #424242;
 }
 .sidebar .logo{
     position: absolute;
-    bottom: 130px;
+    bottom: 260px;
     width: 100%;
     text-align: center
 }
 .sidebar .logo .name{
     font-size: 150%;
     font-weight: bold;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 .side-img{
     background-image: url(../../images/Untitled_04.jpg);
@@ -241,7 +244,7 @@ section{
     right: 0px;
     height: 100%;
     z-index: 2;
-    border-left: 1px solid #ffffff;
+    border-left: 2px solid #ffffff;
     top: 0px;
 }
 .page-3 .sidebar{
@@ -258,24 +261,25 @@ section{
         /* bottom, image */
         url(../../images/Untitled_03.jpg);
     color: #ffffff;
+    background-size: cover;
 }
 .page-3 .sidebar .header{
-    margin-top: 60px;
-    border-top: 2px solid #ffffff;
-    border-bottom: 2px solid #ffffff;
+    margin-top: 120px;
+    border-top: 4px solid #ffffff;
+    border-bottom: 4px solid #ffffff;
     width: 100%;
-    padding: 15px 0px;
-    letter-spacing: 3px;
+    padding: 30px 0px;
+    letter-spacing: 6px;
     background: transparent;
 }
 
 .page-3 .sidebar .header .title{
-    padding: 10px 0px;
+    padding: 20px 0px;
 }
 
 .page-3 .sidebar .title{
-    border-bottom: 2px solid #ffffff;
-    border-top: 2px solid #ffffff;
+    border-bottom: 4px solid #ffffff;
+    border-top: 4px solid #ffffff;
     padding: 0px 0px;
     background-color: #424242;
     margin-top: 0px;
@@ -284,7 +288,7 @@ section{
     width: 55%;
     text-align: right;
     display: inline-block;
-    padding-right: 20px;
+    padding-right: 40px;
     font-size: 130%;
 }
 .page-3 .toc-list{
@@ -292,7 +296,7 @@ section{
     padding: 0px;
 }
 .page-3 .toc-list li{
-    padding: 17px 0px;
+    padding: 34px 0px;
 }
 .page-3 .toc-page-num{
     font-weight: bold;
@@ -330,19 +334,19 @@ section{
     width: 72%;
     white-space: nowrap;
     text-align: center;
-    margin: 1em 0;
+    margin: 0em 0;
 }
 .map-holder.right{
     float: right;
 }
 .map-holder .helper {
     display: inline-block;
-    height: 10%;
+    height: 6%;
     vertical-align: middle;
 }
 .map-holder img{
-    max-height: 90%;
-    max-width: 90%;
+    height: 90%;
+    width: 90%;
     display:block;
     margin:auto;
     vertical-align: middle;
@@ -352,7 +356,7 @@ section{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 20px 0px 20px;
+    padding: 40px 40px 0px 40px;
 
 }
 .sales-items .item{
@@ -368,13 +372,13 @@ section{
     padding: 0px;
 }
 .sales-items .item ul li{
-    line-height: 17px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    font-size: 11px;
+    line-height: 34px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 22px;
     list-style: none;
-    font-size: 14px;
-    padding-left: 10px;
+    font-size: 28px;
+    padding-left: 20px;
 }
 .sales-items .item ul li:nth-child(odd){
     background-color: #c7c7c7;
@@ -401,21 +405,21 @@ section{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px 20px 0px 20px;
-    height: 7.1in;
+    padding: 40px 40px 0px 40px;
+    height: 14.2in;
 }
 .comparables-items .item{
     width: 100%;
-    height: 2.2in;
+    height: 4.4in;
 }
 .comparables-items .address{
-    margin-left: 250px;
+    margin-left: 500px;
     background-color: #c7c7c7;
 }
 .comparables-items .item img{
     max-height: 100%;
     float: left;
-    max-width: 240px; 
+    max-width: 480px; 
 }
 .page-12 .background{
     background-image: url(../../images/Untitled_10.jpg);
@@ -428,12 +432,12 @@ section{
 }
 .rent-rolls{
     width: 100%;
-    padding: 20px 20px 0px 20px;
+    padding: 40px 40px 0px 40px;
     border-spacing: 0;
 }
 .rent-rolls.bottom{
     position: absolute;
-    bottom: 40px;
+    bottom: 80px;
 }
 .rent-rolls th{
     min-width: 19%;
@@ -443,17 +447,17 @@ section{
     background-color: #c7c7c7;
 }
 .rent-rolls tr td{
-    padding: 2px 10px 2px 10px;
-    font-size: 11px;
-    line-height: 13px;
+    padding: 4px 20px 4px 20px;
+    font-size: 22px;
+    line-height: 26px;
 }
 .rent-rolls thead tr:nth-child(odd){
     background-color: transparent;;
 }
 .hint.small{
-    padding-top: 15px;
-    padding-left: 20px;
-    font-size: 9px;
+    padding-top: 30px;
+    padding-left: 40px;
+    font-size: 18px;
 }
 .page-14 .background{
     background-image: url(../../images/Untitled_11.jpg);
@@ -475,19 +479,19 @@ section{
 }
 .image-upload{
     position: absolute;
-    height: 120px;
-    width: 120px;
+    height: 240px;
+    width: 240px;
     top: 50%;
     left: 50%;
-    margin-top: -60px;
-    margin-left: -60px;
-    border: 1px solid #000000;
+    margin-top: -120px;
+    margin-left: -120px;
+    border: 4px solid #000000;
     background-size: cover;
     background-color: #ffffff;
-    font-size: 70px;
-    line-height: 70px;
+    font-size: 140px;
+    line-height: 140px;
     text-align: center;
-    border-radius: 15px;
+    border-radius: 30px;
 }
 .image-upload:hover{
     cursor: pointer;
@@ -503,8 +507,8 @@ section{
 .financial-holder {
     width: 100%;
     overflow: hidden; /* add this to contain floated children */
-    height: calc(100% - 70px);
-    padding-top: 40px;
+    height: calc(100% - 140px);
+    padding-top: 80px;
 }
 .financial-left{
     width: 50%;
@@ -525,11 +529,11 @@ section{
     border-spacing: 0;
 }
 .financial-holder table tr{
-    line-height: 20px;
+    line-height: 40px;
 }
 .financial-holder .table-title{
     border-bottom: 1px solid #000000;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 .financial-holder th{
     text-align: left
@@ -541,17 +545,17 @@ section{
     min-width: 50%;
 }
 .financial-holder .overview{
-    padding-left: 20px;
+    padding-left: 40px;
 }
 .financial-holder .details{
-    padding-right: 20px;
+    padding-right: 40px;
 }
 .financial-holder table .devider{
-    padding-bottom: 60px;
+    padding-bottom: 120px;
 }
 .rent-data{
-    padding-top: 10px;
-    margin-left: 250px;
+    padding-top: 20px;
+    margin-left: 500px;
 }
 .rent-data table{
     width: 100%;
@@ -559,12 +563,12 @@ section{
     border-spacing: 0px;
 }
 .rent-data table td{
-    border-bottom: 1px solid #000000;
+    border-bottom: 2px solid #000000;
 }
 .rent-data .left{
     vertical-align: top;
     display: inline-block;
-    width: 200px;
+    width: 400px;
     font-weight: bold;
 }
 .item-list{
@@ -575,18 +579,18 @@ section{
 }
 .rent-data .right{
     display: inline-block;
-    width: 560px;
+    width: 1120px;
 }
 .tnou{
-    padding: 40px 0px 40px 20px;
+    padding: 80px 0px 80px 40px;
     font-size: 80%;
-    line-height: 20px;
+    line-height: 40px;
 }
 .income-and-expenses{
-    padding: 0px 20px;
+    padding: 0px 40px;
     width: 100%;
     font-size: 80%;
-    line-height: 20px;
+    line-height: 40px;
     text-align: left;
     border-spacing: 0px;
 }
@@ -609,34 +613,34 @@ section{
     z-index: 1;
 }
 .property-information{
-    padding: 120px 20px 0px 20px;
+    padding: 240px 40px 0px 40px;
     width: 65%;
     text-align: left;
     font-size: 120%;
-    line-height: 40px;
+    line-height: 80px;
 }
 .property-information .bold{
     font-weight: bold;
-    padding-left: 40px;
+    padding-left: 80px;
 }
 .data-right{
     display: inline-block;
     float: right;
-    margin-right: 15px;
+    margin-right: 30px;
 }
 #savePDFbutton{
     background-color: #4d9ee1;
-    font-size: 20px;
-    line-height: 40px;
-    border: 2px solid #1b88e2;
-    border-radius: 15px;
-    padding: 0px 20px;
+    font-size: 40px;
+    line-height: 80px;
+    border: 4px solid #1b88e2;
+    border-radius: 30px;
+    padding: 0px 40px;
     cursor: pointer;
 }
 .title-absolute{
     position: absolute;
-    top:10px;
+    top:20px;
     z-index: 5;
-    width: calc(100% - 20px);
+    width: calc(100% - 40px);
     left: 0px;
 }
