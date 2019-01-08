@@ -9,8 +9,6 @@
     "compression": "^1.7.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
-    "firebase": "^5.5.2",
-    "firebase-admin": "^6.0.0",
     "frameguard": "^3.0.0",
     "helmet": "^3.13.0",
     "morgan": "~1.9.0",
