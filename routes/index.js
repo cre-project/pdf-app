@@ -16,11 +16,18 @@ router.get('/:packageId', function(req, res) {
   let url = 'http://localhost:8080/api/packages/' + id['packageId'];
   console.log(url);
 
+  let packageValuation;
+  let packageUser;
+
   request(url, function(error, response, body) {
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
-    console.log('body:', body);
+    let responseBody = JSON.parse(body);
+    let valuation = responseBody['package'];
+    let user = responseBody['user'];
   });
+
+  res.render('index', { valuation: packageValuation, user: packageUser });
 });
 
 module.exports = router;
