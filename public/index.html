@@ -208,40 +208,6 @@
                     <div class="map-holder">
                         <span class="helper"></span>
                         <div id="map"></div>
-                        <script>
-                            function initMap() {
-                                let myLatLng = { lat: 37.423123, lng: -122.084010 };
-
-                                let map = new google.maps.Map(document.getElementById('map'), {
-                                    center: myLatLng,
-                                    zoom: 14
-                                });
-
-                                let marker = new google.maps.Marker({
-                                    map: map,
-                                    position: myLatLng,
-                                    title: 'Hello World!'
-                                });
-                                initMapTwo();
-                            }
-
-                            function initMapTwo() {
-                                    let myLatLng = { lat: 37.423123, lng: -122.084010 };
-
-                                    let mapTwo = new google.maps.Map(document.getElementById('mapTwo'), {
-                                        center: myLatLng,
-                                        zoom: 14
-                                    });
-
-                                    let marker = new google.maps.Marker({
-                                        map: mapTwo,
-                                        position: myLatLng,
-                                        title: 'Hello World!'
-                                    });
-                                }
-                        </script>
-                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD16QB7mFj3vdO9pzLQ65T8h1XSU7lqyRc&callback=initMap" async defer></script>
-                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD16QB7mFj3vdO9pzLQ65T8h1XSU7lqyRc&callback=initMapTwo" async defer></script>
                     </div>
                 </div>
             </section>
@@ -707,5 +673,7 @@
                         </section>-->
         </div>
         <script src='./javascripts/html-preview.js'></script>
+        <script src='./javascripts/maps.js'></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD16QB7mFj3vdO9pzLQ65T8h1XSU7lqyRc&callback=initMap" async defer></script>
     </body>
 </html>
