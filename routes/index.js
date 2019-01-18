@@ -2,15 +2,10 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-// /* GET home page. */
-// router.get('/:ids', function(req, res) {
-// // let ids = JSON.parse(req.params.ids);
-// console.log(ids);
-// res.render('index', { valuation: {}, user: {} });
-// });
+const API_URL = process.env.API_URL || 'localhost:8080/api'
 
-router.get('/:packageId', function(req, res) {
-  const url = `http://localhost:8080/api/packages/${req.params.packageId}`
+router.get('/:packageId', function (req, res) {  
+  const url = `${API_URL}/packages/${req.params.packageId}`
 
   request(url, function(body) {
     try {
