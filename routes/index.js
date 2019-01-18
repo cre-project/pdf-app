@@ -10,24 +10,23 @@ var request = require('request');
 // });
 
 router.get('/:packageId', function(req, res) {
-  let id = JSON.parse(req.params.packageId);
-  console.log(id);
+  const url = `http://localhost:8080/api/packages/${req.params.packageId}`
 
-  let url = 'http://localhost:8080/api/packages/' + id['packageId'];
-  console.log(url);
-
-  let packageValuation;
-  let packageUser;
-
-  request(url, function(error, response, body) {
-    console.log('error:', error);
-    console.log('statusCode:', response && response.statusCode);
-    let responseBody = JSON.parse(body);
-    let valuation = responseBody['package'];
-    let user = responseBody['user'];
+  request(url, function(body) {
+    try {
+      let responseBody = JSON.parse(body);
+      pkg = responseBody['package'];
+      user = responseBody['user'];
+      if (pkg && user) {
+        res.render('index', { valuation: pkg, user: user });
+      } else {
+        res.status(403).send('Package not found')
+      }
+    } catch (e) {
+      console.log('Error parsing response: ', e.message || e)
+      res.status(403).send('Package not found')
+    }
   });
-
-  res.render('index', { valuation: packageValuation, user: packageUser });
 });
 
 module.exports = router;
