@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-const API_URL = process.env.API_URL || 'localhost:8080/api'
+const API_URL = process.env.API_URL || 'localhost:3000/api'
 
 router.get('/:packageId', function (req, res) {  
   const url = `${API_URL}/packages/${req.params.packageId}`

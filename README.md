@@ -1,14 +1,11 @@
 # pdf-app
 
-1) set env variables 
-```
-    FIREBASE_API_KEY,
-    FIREBASE_DOMAIN,
-    FIREBASE_DB_URL,
-    FIREBASE_PROJECT_ID,
-    FIREBASE_DB_URL
-```
-2) run `npm install`
-3) run `DEBUG=app:* npm start`
-4) application will run on port 3000
-5) go to `http://localhost:3000/{"valuationId": "valuationId", "userId": "userId"}`
+1) run `npm install`
+2) run `npm start`
+3) application will run on port 4000
+4) go to `http://localhost:3000/:packageID`
+5) environment variables that can be set:
+   * `PORT` - defaults to `4000`
+   * `DASHBOARD_URL` - defaults to `localhost:8080` - has to be set to allow embedding pdf in an iframe on the dashboard
+   * `API_URL` - defaults to `localhost:3000/api`
+   * 

@@ -16,7 +16,7 @@ app.use(helmet());
 app.use(
   frameguard({
     action: 'allow-from',
-    domain: process.env.DASHBOARD_URL || 'http://localhost:3000'
+    domain: process.env.DASHBOARD_URL || 'http://localhost:8080'
   })
 );
 app.use(compression());
