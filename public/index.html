@@ -41,7 +41,7 @@
                             {{ valuation.property.address.street + ' ' + valuation.property.address.city + ', ' + valuation.property.address.state + valuation.property.address.zip }}
                         </div>
                         <div class="subline">
-                            Built in {{ valuation.property.year_built }}
+                            {{ 'Built in' + valuation.property.year_built if valuation.property.year_built != null }}
                         </div>
                         <div class="underline">
                         </div>
@@ -60,10 +60,10 @@
                             {{ valuation.property.address.city + ', ' + valuation.property.address.state + ', ' + valuation.property.address.zip }}
                         </div>
                         <div class="brand">
-                            {{ user.company.name }}
+                            {{ user.company.name if user.company.name != null }}
                         </div>
                         <div class="logo">
-                            <div class="name">{{ user.user.first_name + ' ' + user.user.last_name }}</div>
+                            <div class="name">{{ user.user.first_name + ' ' + user.user.last_name if user.user.first_name != null and user.user.last_name != null }}</div>
                             <div class="email">{{ user.user.email }}</div>
                         </div>
                     </div>
@@ -130,20 +130,20 @@
                                 <td class="bold">{{ valuation.property.address.zip }}</td>
                             </tr>
                             <tr>
-                                <td>Number of Stories</td>
-                                <td class="bold">{{ valuation.property.number_of_stories }}</td>
+                                <td>{{ 'Number of Stories' if valuation.property.number_of_stories != null }}</td>
+                                <td class="bold">{{ valuation.property.number_of_stories if valuation.property.number_of_stories != null }}</td>
                             </tr>
                             <tr>
-                                <td>Year Built</td>
-                                <td class="bold">{{ valuation.property.year_built }}</td>
+                                <td>{{ 'Year Built' if valuation.property.year_built != null }}</td>
+                                <td class="bold">{{ valuation.property.year_built if valuation.property.year_built != null }}</td>
                             </tr>
                             <tr>
-                                <td>Lot Size</td>
-                                <td class="bold">{{ valuation.property.lot_size }}</td>
+                                <td>{{ 'Lot Size' if valuation.property.lot_size != null }}</td>
+                                <td class="bold">{{ valuation.property.lot_size if valuation.property.lot_size != null }}</td>
                             </tr>
                             <tr>
-                                <td>APN</td>
-                                <td class="bold">{{ valuation.property.apn }}</td>
+                                <td>{{ 'APN' if valuation.property.apn != null }}</td>
+                                <td class="bold">{{ valuation.property.apn if valuation.property.apn != null }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -186,109 +186,122 @@
                     </div>
                 </div>
             </section>
-            <section class="page page-8">
-                <div class="vertical title left letter-spacer">RECENT SALES</div>
-                <div id="page-8" class="background">
-                    <button class="image-upload hide-on-save" data-target="page-8"><i class="fas fa-camera"></i></button>
-                    <input type="file" name="page-8" class="img-inputer"/>
-                </div>
-            </section>
-            <section class="page page-9">
-                <div class="background">
-                    <div class="sidebar right">
-                        <div class="header">
-                            RECENT SALES
+            {% if valuation.package_sold_properties.length != 0 %}
+                <section class="page page-8">
+                    <div class="vertical title left letter-spacer">RECENT SALES</div>
+                    <div id="page-8" class="background">
+                        <button class="image-upload hide-on-save" data-target="page-8"><i class="fas fa-camera"></i></button>
+                        <input type="file" name="page-8" class="img-inputer" />
+                    </div>
+                </section>
+                <section class="page page-9">
+                    <div class="background">
+                        <div class="sidebar right">
+                            <div class="header">
+                                RECENT SALES
+                            </div>
+                            <ol>
+                                {% for comp in valuation.package_sold_properties %}
+                                <li>{{ comp.address.street if comp.address.street != null }}</li>
+                                {% endfor %}
+                            </ol>
                         </div>
-                        <ol>
+                        <div class="map-holder">
+                            <span class="helper"></span>
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="page sales-slide">
+                    <div class="title transparent">RECENT SALES</div>
+                    <div class="sales-items">
                             {% for comp in valuation.package_sold_properties %}
-                            <li>{{ comp.address.street }}</li>
+                            <div class="item">
+                                <img src="./images/Untitled_09.jpg">
+                                <div class="address">{{ comp.address.street + ' ' + comp.address.city if comp.address.street != null and comp.address.city != null }}</div>
+                                <ul class="item-list">
+                                    <li>No. of Units: <div class="data-right">{{ comp.num_units if comp.num_units != null }}</div>
+                                    </li>
+                                    <li>Year Built: <div class="data-right">{{ comp.year_built if comp.year_built != null }}</div>
+                                    </li>
+                                    <li>Sale Price: <div class="data-right">{{ comp.sales_price if comp.sales_price != null }}</div>
+                                    </li>
+                                    <li>Price/Unit: <div class="data-right">{{ comp.price_per_unit if comp.price_per_unit != null }}</div>
+                                    </li>
+                                    <li>Price/SF: <div class="data-right">{{ comp.price_per_sf if comp.price_per_sf != null }}</div>
+                                    </li>
+                                    <li>CAP Rate: <div class="data-right">{{ comp.cap_rate if comp.cap_rate != null }}</div>
+                                    </li>
+                                    <li>GRM: <div class="data-right">{{ comp.grm if comp.grm != null }}</div>
+                                    </li>
+                                    <li>Close of Escrow: <div class="data-right">{{ comp.close_of_escrow if comp.close_of_escrow != null }}</div>
+                                    </li>
+                                </ul>
+                            </div>
                             {% endfor %}
-                        </ol>
-                    </div>
-                    <div class="map-holder">
-                        <span class="helper"></span>
-                        <div id="map"></div>
-                    </div>
-                </div>
-            </section>
-            <section class="page sales-slide">
-                <div class="title transparent">RECENT SALES</div>
-                <div class="sales-items">
-                    {% for comp in valuation.package_sold_properties %}
-                    <div class="item">
-                        <img src="./images/Untitled_09.jpg">
-                        <div class="address">{{ comp.address.street + ' ' + comp.address.city }}</div>
-                        <ul class="item-list">
-                            <li>No. of Units: <div class="data-right">{{ comp.num_units }}</div></li>
-                            <li>Year Built: <div class="data-right">{{ comp.year_built }}</div></li>
-                            <li>Sale Price: <div class="data-right">{{ comp.sales_price }}</div></li>
-                            <li>Price/Unit: <div class="data-right">{{ comp.price_per_unit }}</div></li>
-                            <li>Price/SF: <div class="data-right">{{ comp.price_per_sf }}</div></li>
-                            <li>CAP Rate: <div class="data-right">{{ comp.cap_rate }}</div></li>
-                            <li>GRM: <div class="data-right">{{ comp.grm }}</div></li>
-                            <li>Close of Escrow: <div class="data-right">{{ comp.close_of_escrow }}</div></li>
-                        </ul>
-                    </div>
-                    {% endfor %}
-                </div>
-            </section>
-            <section class="page page-10">
-                <div class="vertical title right letter-spacer">RENT COMPARABLES</div>
-                <div id="page-10" class="background">
-                    <button class="image-upload hide-on-save" data-target="page-10"><i class="fas fa-camera"></i></button>
-                    <input type="file" name="page-10" class="img-inputer"/>
-                </div>
-            </section>
-            <section class="page page-11">
-                <div class="background">
-                    <div class="sidebar left">
-                        <div class="header">
-                            RENT COMPARABLES
                         </div>
-                        <ol>
-                            {% for comp in valuation.rentComps %}
-                            <li>{{ comp.address }}</li>
-                            {% endfor %}
-                        </ol>
+                    </section>
+            {% endif %}
+
+            {% if valuation.package_rented_units.length != 0 %}
+                <section class="page page-10">
+                    <div class="vertical title right letter-spacer">RENT COMPARABLES</div>
+                    <div id="page-10" class="background">
+                        <button class="image-upload hide-on-save" data-target="page-10"><i class="fas fa-camera"></i></button>
+                        <input type="file" name="page-10" class="img-inputer" />
                     </div>
-                    <div class="map-holder right">
-                        <span class="helper"></span>
-                        <div id="mapTwo"></div>
+                </section>
+                <section class="page page-11">
+                    <div class="background">
+                        <div class="sidebar left">
+                            <div class="header">
+                                RENT COMPARABLES
+                            </div>
+                            <ol>
+                                {% for comp in valuation.rentComps %}
+                                <li>{{ comp.address if comp.address != null }}</li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                        <div class="map-holder right">
+                            <span class="helper"></span>
+                            <div id="mapTwo"></div>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section class="page sales-slide">
-                <div class="title transparent">RENT COMPARABLES</div>
-                <div class="comparables-items">
-                    {% for comp in valuation.rentComps %}
-                    <div class="item">
-                        <img src="./images/Untitled_09.jpg">
-                        <div>
-                            <div class="address"> ADDRESS: {{ comp.address + ' ' + comp.city }}</div>
-                            <div class="rent-data">
-                                <div class="left">
-                                    Year Built: {{ comp.yearBuilt }}
-                                </div>
-                                <div class="right">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <th>Unit Type</th>
-                                                <th>Rent</th>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ comp.type }} bed, {{ comp.bathroom }} bath</td>
-                                                <td>{{ comp.rent }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                </section>
+                <section class="page sales-slide">
+                    <div class="title transparent">RENT COMPARABLES</div>
+                    <div class="comparables-items">
+                        {% for comp in valuation.package_rented_units %}
+                        <div class="item">
+                            <img src="./images/Untitled_09.jpg">
+                            <div>
+                                <div class="address"> ADDRESS: {{ comp.address.street + ' ' + comp.address.city if comp.address.street != null and comp.address.city != null}}</div>
+                                <div class="rent-data">
+                                    <div class="left">
+                                        Year Built: {{ comp.yearBuilt if comp.yearBuilt != null }}
+                                    </div>
+                                    <div class="right">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <th>Unit Type</th>
+                                                    <th>Rent</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ comp.type + ' bed' if comp.type != null }}, {{ comp.bathroom + ' bath' if comp.bathroom != null }}</td>
+                                                    <td>{{ comp.rent if comp.rent != null }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
-            </section>
+                </section>
+            {% endif %}
             <section class="page page-12">
                 <div class="vertical title right letter-spacer">PRICING AND FINANCIAL ANALYSIS</div>
                 <div id="page-12" class="background">
@@ -296,31 +309,33 @@
                     <input type="file" name="page-12" class="img-inputer"/>
                 </div>
             </section>
-            <section class="page page-13">
-                <div class="title transparent">RENT ROLL</div>
-                <table class="rent-rolls" >
-                    <thead>
-                        <tr>
-                            <th>Unit Number </th>
-                            <th>Unit Type</th>
-                            <th>Unit SF</th>
-                            <th>Current Rent</th>
-                            <th>Potential Rent</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for unit in valuation.property_units %}
-                        <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{ unit.bedrooms }} bed, {{ unit.bathrooms }} bath</td>
-                            <td>{{ unit.bathrooms }}</td>
-                            <td>{{ unit.current_rent }}</td>
-                            <td>{{ unit.potential_rent }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </section>
+            {% if valuation.property_units.length != 0 %}
+                <section class="page page-13">
+                    <div class="title transparent">RENT ROLL</div>
+                    <table class="rent-rolls" >
+                        <thead>
+                            <tr>
+                                <th>Unit Number </th>
+                                <th>Unit Type</th>
+                                <th>Unit SF</th>
+                                <th>Current Rent</th>
+                                <th>Potential Rent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for unit in valuation.property_units %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ unit.bedrooms }} bed, {{ unit.bathrooms }} bath</td>
+                                <td>{{ unit.bathrooms }}</td>
+                                <td>{{ unit.current_rent }}</td>
+                                <td>{{ unit.potential_rent if unit.potential_rent != null }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            {% endif %}
             <section class="page page-17">
                 <div class="title transparent">INCOME AND EXPENSES</div>
                 <div class="tnou">Total Number of Units: {{ valuation.property_units | length }}</div>
@@ -465,19 +480,19 @@
                             <tbody>
                                 <tr>
                                     <td>LOCATION</td>
-                                    <td>{{ valuation.property.zip if valuation.property.zip !== null else ''}} {{  + valuation.property.city if valuation.property.city !== null else ''}} {{ valuation.property.state if valuation.property.state !== null else '' }}</td>
+                                    <td>{{ valuation.property.address.zip if valuation.property.address.zip !== null else ''}} {{  + valuation.property.address.city if valuation.property.address.city !== null else ''}} {{ valuation.property.address.state if valuation.property.address.state !== null else '' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="devider">ADDRESS</td>
-                                    <td>{{ valuation.property.address }}</td>
+                                    <td>{{ valuation.property.address.street }}</td>
                                 </tr>
                                 <tr>
                                     <td>Price</td>
-                                    <td>{{ valuation.price }}</td>
+                                    <td>{{ valuation.property.price }}</td>
                                 </tr>
                                 <tr>
                                     <td>Number of Units</td>
-                                    <td>{{ valuation.units | length }}</td>
+                                    <td>{{ valuation.property_units | length }}</td>
                                 </tr>
                                 <tr>
                                     <td>Price/Unit</td>
