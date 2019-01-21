@@ -38,10 +38,10 @@
                     </div>
                     <div class="footer">
                         <div class="headline letter-spacer">
-                            {{ valuation.property.address + ' ' + valuation.property.city }}
+                            {{ valuation.property.address.street + ' ' + valuation.property.address.city + ', ' + valuation.property.address.state + valuation.property.address.zip }}
                         </div>
                         <div class="subline">
-                            Built in {{ valuation.property.yearBuilt }}
+                            Built in {{ valuation.property.year_built }}
                         </div>
                         <div class="underline">
                         </div>
@@ -54,17 +54,17 @@
                     <input type="file" name="page-2" class="img-inputer"/>
                     <div class="sidebar right">
                         <div class="address-num">
-                            {{ valuation.property.address }}
+                            {{ valuation.property.address.street }}
                         </div>
                         <div class="address-str">
-                            {{ valuation.property.city }}
+                            {{ valuation.property.address.city + ', ' + valuation.property.address.state + ', ' + valuation.property.address.zip }}
                         </div>
                         <div class="brand">
-                            {{ user.companyName }}
+                            {{ user.company.name }}
                         </div>
                         <div class="logo">
-                            <div class="name">{{ user.firstName + ' ' + user.lastName }}</div>
-                            <div class="email">{{ user.email }}</div>
+                            <div class="name">{{ user.user.first_name + ' ' + user.user.last_name }}</div>
+                            <div class="email">{{ user.user.email }}</div>
                         </div>
                     </div>
                 </div>
@@ -115,31 +115,31 @@
                         <tbody>
                             <tr>
                                 <td>Property Address</td>
-                                <td class="bold">{{ valuation.property.address }}</td>
+                                <td class="bold">{{ valuation.property.address.street }}</td>
                             </tr>
                             <tr>
                                 <td>Property City</td>
-                                <td class="bold">{{ valuation.property.city }}</td>
+                                <td class="bold">{{ valuation.property.address.city }}</td>
                             </tr>
                             <tr>
                                 <td>Property State</td>
-                                <td class="bold">{{ valuation.property.state }}</td>
+                                <td class="bold">{{ valuation.property.address.state }}</td>
                             </tr>
                             <tr>
                                 <td>Property Zip</td>
-                                <td class="bold">{{ valuation.property.zip }}</td>
+                                <td class="bold">{{ valuation.property.address.zip }}</td>
                             </tr>
                             <tr>
                                 <td>Number of Stories</td>
-                                <td class="bold">{{ valuation.property.numberOfStories }}</td>
+                                <td class="bold">{{ valuation.property.number_of_stories }}</td>
                             </tr>
                             <tr>
                                 <td>Year Built</td>
-                                <td class="bold">{{ valuation.property.yearBuilt }}</td>
+                                <td class="bold">{{ valuation.property.year_built }}</td>
                             </tr>
                             <tr>
                                 <td>Lot Size</td>
-                                <td class="bold">{{ valuation.property.lotSize }}</td>
+                                <td class="bold">{{ valuation.property.lot_size }}</td>
                             </tr>
                             <tr>
                                 <td>APN</td>
@@ -200,8 +200,8 @@
                             RECENT SALES
                         </div>
                         <ol>
-                            {% for comp in valuation.salesComps %}
-                            <li>{{ comp.address }}</li>
+                            {% for comp in valuation.package_sold_properties %}
+                            <li>{{ comp.address.street }}</li>
                             {% endfor %}
                         </ol>
                     </div>
@@ -214,19 +214,19 @@
             <section class="page sales-slide">
                 <div class="title transparent">RECENT SALES</div>
                 <div class="sales-items">
-                    {% for comp in valuation.salesComps %}
+                    {% for comp in valuation.package_sold_properties %}
                     <div class="item">
                         <img src="./images/Untitled_09.jpg">
-                        <div class="address">{{ comp.address + ' ' + comp.city }}</div>
+                        <div class="address">{{ comp.address.street + ' ' + comp.address.city }}</div>
                         <ul class="item-list">
-                            <li>No. of Units: <div class="data-right">{{ comp.numUnits }}</div></li>
-                            <li>Year Built: <div class="data-right">{{ comp.yearBuilt }}</div></li>
-                            <li>Sale Price: <div class="data-right">{{ comp.salesPrice }}</div></li>
-                            <li>Price/Unit: <div class="data-right">{{ comp.pricePerUnit }}</div></li>
-                            <li>Price/SF: <div class="data-right">{{ comp.pricePerSf }}</div></li>
-                            <li>CAP Rate: <div class="data-right">{{ comp.capRate }}</div></li>
+                            <li>No. of Units: <div class="data-right">{{ comp.num_units }}</div></li>
+                            <li>Year Built: <div class="data-right">{{ comp.year_built }}</div></li>
+                            <li>Sale Price: <div class="data-right">{{ comp.sales_price }}</div></li>
+                            <li>Price/Unit: <div class="data-right">{{ comp.price_per_unit }}</div></li>
+                            <li>Price/SF: <div class="data-right">{{ comp.price_per_sf }}</div></li>
+                            <li>CAP Rate: <div class="data-right">{{ comp.cap_rate }}</div></li>
                             <li>GRM: <div class="data-right">{{ comp.grm }}</div></li>
-                            <li>Close of Escrow: <div class="data-right">{{ comp.closeOfEscrow }}</div></li>
+                            <li>Close of Escrow: <div class="data-right">{{ comp.close_of_escrow }}</div></li>
                         </ul>
                     </div>
                     {% endfor %}
@@ -305,17 +305,17 @@
                             <th>Unit Type</th>
                             <th>Unit SF</th>
                             <th>Current Rent</th>
-                            <th>Asking Rent</th>
+                            <th>Potential Rent</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for unit in valuation.units %}
+                        {% for unit in valuation.property_units %}
                         <tr>
                             <td>{{ loop.index }}</td>
                             <td>{{ unit.bedrooms }} bed, {{ unit.bathrooms }} bath</td>
-                            <td>{{ unit.squareFeet }}</td>
-                            <td>{{ unit.currentRent }}</td>
-                            <td>{{ unit.potentialRent }}</td>
+                            <td>{{ unit.bathrooms }}</td>
+                            <td>{{ unit.current_rent }}</td>
+                            <td>{{ unit.potential_rent }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -323,7 +323,7 @@
             </section>
             <section class="page page-17">
                 <div class="title transparent">INCOME AND EXPENSES</div>
-                <div class="tnou">Total Number of Units: {{ valuation.units | length }}</div>
+                <div class="tnou">Total Number of Units: {{ valuation.property_units | length }}</div>
                 <table class="income-and-expenses" >
                     <thead>
                         <tr>
