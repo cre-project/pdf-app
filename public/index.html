@@ -344,11 +344,13 @@
                     </thead>
                     <tbody>
                         {% for field in valuation.operating_statement_fields %}
-                        <tr>
-                            <td>{{ field.name }}</td>
-                            <td>{{ field.current_value }}</td>
-                            <td>{{ field.potential_value }}</td>
-                        </tr>
+                            {% if field.is_income == true %}
+                                <tr>
+                                    <td>{{ field.name }}</td>
+                                    <td>{{ field.current_value }}</td>
+                                    <td>{{ field.potential_value }}</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
 
                         <tr>
@@ -383,11 +385,13 @@
                                 <th></th>
                             </tr>
                         {% for field in valuation.operating_statement_fields %}
-                        <tr>
-                            <td>{{ field.name }}</td>
-                            <td>{{ field.current_value }}</td>
-                            <td>{{ field.potential_value }}</td>
-                        </tr>
+                            {% if field.is_income == false %}
+                                <tr>
+                                    <td>{{ field.name }}</td>
+                                    <td>{{ field.current_value }}</td>
+                                    <td>{{ field.potential_value }}</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
 
                         <tr>
