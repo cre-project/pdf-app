@@ -2,6 +2,8 @@ const googleMapsClient = require('@google/maps').createClient({
     key: process.env.GOOGLE_MAPS_API_KEY || ''
 })
 
+const element = document.getElementById("maps-url")
+element.setAttribute("src", googleMapsUrl)
 
 function getCoordinatesForAddress(address) {
     // Geocode an address.
@@ -14,12 +16,10 @@ function getCoordinatesForAddress(address) {
   })
 }
 
-
 function initMap() {
-    
     let myLatLng = { lat: 37.423123, lng: -122.084010 };
 
-    // this map has a pin for property + pins of a different color for all sold properties for this package (get latlng for each address) 
+    // this map has a pin for property + pins of a different color for all sold properties for this package (get latlng for each address)
     let recentSalesMap = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         zoom: 14
@@ -30,7 +30,7 @@ function initMap() {
         title: 'Hello World!'
     })
 
-    // this map has a pin for property + pins of a different color for all rented units for this package (get latlng for each address) 
+    // this map has a pin for property + pins of a different color for all rented units for this package (get latlng for each address)
     let rentComparableMap = new google.maps.Map(document.getElementById('mapTwo'), {
         center: myLatLng,
         zoom: 14
