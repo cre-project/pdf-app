@@ -269,27 +269,36 @@
                         </div>
                     </div>
                 </section>
-                <section class="page sales-slide">
-                    <div class="title transparent">RENT COMPARABLES</div>
-                    <div class="sales-items rent-comparables-middle">
-                        {% for comp in valuation.rented_units %}
 
-
-                        <div class="item">
-                            <img src="./images/Untitled_09.jpg">
-                            <div class="address">{{ comp.address.street + ' ' + comp.address.city if comp.address.street != null and comp.address.city != null }}</div>
-                            <ul class="item-list">
-                                <li>Year Built: <div class="data-right">{{ comp.year_built if comp.year_built != null }}</div>
-                                </li>
-                                <li>Unit Type: <div class="data-right">{{ comp.bedrooms + ' bed' if comp.bedrooms != null }}, {{ comp.bathrooms + ' bath' if comp.bathrooms != null }}</div>
-                                </li>
-                                <li>Rent: <div class="data-right">{{ comp.current_rent if comp.current_rent != null }}</div>
-                                </li>
-                            </ul>
+                {% set lastIndex = 0 %}
+                {% for comp in valuation.rented_units %}
+                    {% set lastIndex = loop.index %}
+                    {% if loop.index % 3 == 1 %}
+                    <section class="page sales-slide">
+                        <div class="title transparent">RENT COMPARABLES</div>
+                        <div class="sales-items rent-comparables-middle">
+                    {% endif %}
+                            <div class="item">
+                                <img src="./images/Untitled_09.jpg">
+                                <div class="address">{{ comp.address.street + ' ' + comp.address.city if comp.address.street != null and comp.address.city != null }}</div>
+                                <ul class="item-list">
+                                    <li>Year Built: <div class="data-right">{{ comp.year_built if comp.year_built != null }}</div>
+                                    </li>
+                                    <li>Unit Type: <div class="data-right">{{ comp.bedrooms + ' bed' if comp.bedrooms != null }}, {{ comp.bathrooms + ' bath' if comp.bathrooms != null }}</div>
+                                    </li>
+                                    <li>Rent: <div class="data-right">{{ comp.current_rent if comp.current_rent != null }}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            {% if loop.index % 3 == 0 %}
                         </div>
-                        {% endfor %}
-                    </div>
-                </section>
+                    </section>
+                    {% endif %}
+                {% endfor %}
+                {% if loop.index != 0 %}
+                        </div>
+                    </section>
+                {% endif %}
             {% endif %}
             <section class="page page-12">
                 <div class="vertical title right letter-spacer">PRICING AND FINANCIAL ANALYSIS</div>
@@ -657,8 +666,8 @@
                             </div>
                         </section>-->
         </div>
+        <script id="maps-url" async defer></script>
         <script src='./javascripts/html-preview.js'></script>
         <script src='./javascripts/maps.js'></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYunKZ8QSYdTIAusvpC6RwK4qyziFv66Q&callback=initMap" async defer></script>
     </body>
 </html>
