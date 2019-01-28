@@ -330,10 +330,16 @@
                 <div class="tnou">Total Number of Units: {{ valuation.property_units | length }}</div>
                 <table class="income-and-expenses" >
                     <thead>
+                        <tr class="highlighted">
+                            <td>Income</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         <tr>
-                            <th>Name</th>
+                            <th></th>
                             <th>Current</th>
                             <th>Pro Forma</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -344,6 +350,7 @@
                             <td>{{ field.potential_value }}</td>
                         </tr>
                         {% endfor %}
+
                         <tr>
                             <td>EFFECTIVE RENTAL INCOME</td>
                             <td>{{ valuation.statementCurrent.effectiveRent }}</td>
@@ -369,6 +376,19 @@
                             <td></td>
                             <td></td>
                         </tr>
+                        <tr>
+                                <th></th>
+                                <th>Current</th>
+                                <th>Pro Forma</th>
+                                <th></th>
+                            </tr>
+                        {% for field in valuation.operating_statement_fields %}
+                        <tr>
+                            <td>{{ field.name }}</td>
+                            <td>{{ field.current_value }}</td>
+                            <td>{{ field.potential_value }}</td>
+                        </tr>
+                        {% endfor %}
 
                         <tr>
                             <td>Real Estate Taxes ({{ valuation.taxes }}%)</td>
@@ -635,6 +655,6 @@
         </div>
         <script src='./javascripts/html-preview.js'></script>
         <script src='./javascripts/maps.js'></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD16QB7mFj3vdO9pzLQ65T8h1XSU7lqyRc&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYunKZ8QSYdTIAusvpC6RwK4qyziFv66Q&callback=initMap" async defer></script>
     </body>
 </html>
