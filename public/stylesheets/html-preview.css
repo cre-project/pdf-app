@@ -365,6 +365,10 @@ section {
   margin-top: -5%;
 }
 
+.rent-comparables-middle {
+  margin-top: 10%;
+}
+
 .sales-items {
   display: flex;
   flex-direction: row;
