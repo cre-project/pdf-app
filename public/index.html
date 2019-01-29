@@ -382,21 +382,38 @@
                                 </tr>
                             {% endif %}
                         {% endfor %}
-
                         <tr>
                             <td>EFFECTIVE RENTAL INCOME</td>
-                            <td>{{ valuation.statementCurrent.effectiveRent }}</td>
-                            <td>{{ valuation.statementPotential.effectiveRent }}</td>
+                            {% set currentRent = 0 %}
+                            {% for unit in valuation.property_units %}
+                                {% set currentRent = currentRent + unit.current_rent %}
+                            {% endfor %}
+                            {% set potentialRent = 0 %}
+                            {% for unit in valuation.property_units %}
+                                {% set potentialRent = potentialRent + unit.potential_rent %}
+                            {% endfor %}
+                            <td>{{ currentRent }}</td>
+                            <td>{{ potentialRent }}</td>
                         </tr>
                         <tr>
                             <td>Total Other Income</td>
-                            <td>{{ valuation.statementCurrent.otherIncome }}</td>
-                            <td>{{ valuation.statementPotential.otherIncome }}</td>
+                            {% set currentOtherIncome = 0 %}
+                            {% set potentialOtherIncome = 0 %}
+                            {% for field in valuation.operating_statement_fields %}
+                                {% if field.is_income == true %}
+                                    {% set currentOtherIncome = currentOtherIncome + field.current_value %}
+                                    {% set potentialOtherIncome = potentialOtherIncome + field.potential_value %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>{{ currentOtherIncome }}</td>
+                            <td>{{ potentialOtherIncome }}</td>
                         </tr>
                         <tr class="highlighted">
                             <td>EFFECTIVE GROSS INCOME</td>
-                            <td>{{ valuation.statementCurrent.effectiveGrossIncome }}</td>
-                            <td>{{ valuation.statementPotential.effectiveGrossIncome }}</td>
+                            {% set currentGrossIncome = currentRent + currentOtherIncome %}
+                            {% set potentialGrossIncome = potentialRent + potentialOtherIncome %}
+                            <td>{{ currentGrossIncome }}</td>
+                            <td>{{ potentialGrossIncome }}</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -414,6 +431,8 @@
                                 <th>Pro Forma</th>
                                 <th></th>
                             </tr>
+                            {% set currentNetOperatingIncome = currentGrossIncome - currentTotalExpenses %}
+                            {% set potentialNetOperatingIncome = potentialGrossIncome - potentialTotalExpenses %}
                         {% for field in valuation.operating_statement_fields %}
                             {% if field.is_income == false %}
                                 <tr>
@@ -445,8 +464,16 @@
                         </tr>
                         <tr>
                             <td>TOTAL EXPENSES</td>
-                            <td></td>
-                            <td></td>
+                            {% set currentTotalExpenses = 0 %}
+                            {% set potentialTotalExpenses = 0 %}
+                            {% for field in valuation.operating_statement_fields %}
+                                {% if field.is_income == false %}
+                                    {% set currentTotalExpenses = currentTotalExpenses + field.current_value %}
+                                    {% set potentialTotalExpenses = potentialTotalExpenses + field.potential_value %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>{{ currentTotalExpenses }}</td>
+                            <td>{{ potentialTotalExpenses }}</td>
                         </tr>
                         <tr class="highlighted">
                             <td>% of EGI</td>
@@ -455,13 +482,15 @@
                         </tr>
                         <tr>
                             <td>NET OPERATING INCOME</td>
-                            <td></td>
-                            <td></td>
+                            {% set currentNetOperatingIncome = currentGrossIncome - currentTotalExpenses %}
+                            <td>{{ currentNetOperatingIncome }}</td>
+                            {% set potentialNetOperatingIncome = potentialGrossIncome - potentialTotalExpenses %}
+                            <td>{{ potentialNetOperatingIncome }}</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
-                            <td>{{ valuation.statementPotential.netOperatingIncome }}</td>
-                            <td>{{ valuation.statementPotential.netOperatingIncome }}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr class="highlighted">
                             <td>&nbsp;</td>
@@ -508,19 +537,25 @@
                                 </tr>
                                 <tr>
                                     <td>CAP Rate - Current</td>
-                                    <td>{{ stats.currentCapRate }}</td>
+                                    {% set currentNetOperatingIncome = currentGrossIncome - currentTotalExpenses %}
+                                    {% set currentCapRate = currentNetOperatingIncome / valuation.property.price * 100 %}
+                                    <td>{{ currentCapRate.toFixed(2) }}</td>
                                 </tr>
                                 <tr>
                                     <td>CAP Rate - Pro Forma</td>
-                                    <td>{{ stats.potentialCapRate }}</td>
+                                    {% set potentialNetOperatingIncome = potentialGrossIncome - potentialTotalExpenses %}
+                                    {% set potentialCapRate = potentialNetOperatingIncome / valuation.property.price * 100 %}
+                                    <td>{{ potentialCapRate.toFixed(2) }}</td>
                                 </tr>
                                 <tr>
                                     <td>GRM - Current</td>
-                                    <td>{{ stats.currentGrm }}</td>
+                                    {% set currentGrm = valuation.property.price / currentRent %}
+                                    <td>{{ currentGrm.toFixed(2) }}</td>
                                 </tr>
                                  <tr>
                                     <td>GRM - Pro Forma</td>
-                                    <td>{{ stats.potentialGrm }}</td>
+                                    {% set potentialGrm = valuation.property.price / potentialRent %}
+                                    <td>{{ potentialGrm.toFixed(2) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Year Built</td>
@@ -546,33 +581,43 @@
                                 </tr>
                                 <tr class="highlighted">
                                     <td>Gross Potential Rent</td>
-                                    <td>{{ valuation.statementPotential.grossRent }}</td>
-                                    <td>{{ valuation.statementPotential.grossRent }}</td>
+                                    <td>{{ currentRent }}</td>
+                                    <td>{{ potentialRent }}</td>
                                 </tr>
                                 <tr>
                                     <td>Less: Vacancy/Deductions</td>
-                                    <td>{{ valuation.statementCurrent.vacancy }}</td>
-                                    <td>{{ valuation.statementPotential.vacancy }}</td>
+                                    {% set vacancy = 0 %}
+                                    {% if valuation.operating_statement.vacancy > 0 %}
+                                        {% set vacancy = valuation.operating_statement.vacancy %}
+                                    {% endif %}
+                                    {% set currentVacancy = (currentRent / 100) * vacancy %}
+                                    {% set potentialVacancy = (potentialRent / 100) * vacancy %}
+                                    <td>{{ currentVacancy }}</td>
+                                    <td>{{ potentialVacancy }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Gross Potential Income</td>
-                                    <td>{{ valuation.statementCurrent.effectiveRent }}</td>
-                                    <td>{{ valuation.statementPotential.effectiveRent }}</td>
+                                    <td>Rent Income</td>
+                                    {% set currentEffectiveRent = (currentRent - currentVacancy) %}
+                                    {% set potentialEffectiveRent = (potentialRent - potentialVacancy) %}
+                                    <td>{{ currentEffectiveRent }}</td>
+                                    <td>{{ potentialEffectiveRent }}</td>
                                 </tr>
                                 <tr>
                                     <td>Other Income</td>
-                                    <td>{{ valuation.statementCurrent.otherIncome }}</td>
-                                    <td>{{ valuation.statementPotential.otherIncome }}</td>
+                                    <td>{{ currentOtherIncome }}</td>
+                                    <td>{{ potentialOtherIncome }}</td>
                                 </tr>
                                 <tr>
                                     <td>Effective Gross Income</td>
-                                    <td>{{ valuation.statementCurrent.effectiveGrossIncome }}</td>
-                                    <td>{{ valuation.statementPotential.potentialGrossIncome }}</td>
+                                    {% set currentGrossIncome = currentEffectiveRent + currentOtherIncome %}
+                                    {% set potentialGrossIncome = potentialEffectiveRent + potentialOtherIncome %}
+                                    <td>{{ currentGrossIncome }}</td>
+                                    <td>{{ potentialGrossIncome }}</td>
                                 </tr>
                                 <tr>
                                     <td>Less: Expenses</td>
-                                    <td>{{ valuation.statementCurrent.totalExpenses }}</td>
-                                    <td>{{ valuation.statementPotential.totalExpenses }}</td>
+                                    <td>{{ currentTotalExpenses }}</td>
+                                    <td>{{ potentialTotalExpenses }}</td>
                                 </tr>
                                 <tr class="highlighted">
                                     <td>Net Operating Income</td>
@@ -591,46 +636,25 @@
                         </div>
                         <table class="details">
                             <tbody>
+                                {% for field in valuation.operating_statement_fields %}
+                                    {% if field.is_income == false %}
+                                        <tr>
+                                            <td>{{ field.name }}</td>
+                                            <td>{{ field.current_value }}</td>
+                                            <td>{{ field.potential_value }}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
                                 <tr>
                                     <td>Real Estate Taxes</td>
                                     <td>{{ valuation.taxes }}</td>
                                     <td>{{ valuation.taxes }}</td>
                                 </tr>
-                                <tr>
-                                    <td>Insurance</td>
-                                    <td>{{ valuation.statementCurrent.expenses.insurance }}</td>
-                                    <td>{{ valuation.statementPotential.expenses.insurance }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Utilities - Electric</td>
-                                    <td>{{ valuation.statementCurrent.expenses.electric}}</td>
-                                    <td>{{ valuation.statementPotential.expenses.electric }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Utilities - Water & Sewer</td>
-                                    <td>{{ valuation.statementCurrent.expenses.water }}</td>
-                                    <td>{{ valuation.statementPotential.expenses.water }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Garbage</td>
-                                    <td>{{ valuation.statementCurrent.expenses.garbage }}</td>
-                                    <td>{{ valuation.statementPotential.expenses.garbage }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Repairs & Maintenance</td>
-                                    <td>{{ valuation.statementCurrent.expenses.maintencance }}</td>
-                                    <td>{{ valuation.statementPotential.expenses.maintenance }}</td>
-                                </tr>
-                                <tr>
                                     <td>Management Fee</td>
-                                    <td>{{ valuation.statementCurrent.mgmtFee }}</td>
+                                    <td>{{ valuation.operating_statement.mgmt_fee if valuation.operating_statement.mgmt_fee != null }}</td>
                                     <td>{{ valuation.statementPotential.mgmtFee }}</td>
                                 </tr>
-                                <tr>
-                                    <td>Landscaping</td>
-                                    <td>{{ valuation.statementCurrent.expenses.landscaping }}</td>
-                                    <td>{{ valuation.statementPotential.expenses.landscaping }}</td>
-                                </tr>
+
                                 <tr>
                                     <td class="devider">Other Expenses</td>
                                     <td>{{ valuation.statementCurrent.expenses.other }}</td>
