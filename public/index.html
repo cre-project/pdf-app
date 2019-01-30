@@ -482,14 +482,18 @@
                         </tr>
                         <tr class="highlighted">
                             <td>% of EGI</td>
-                            <td>{{ valuation.statementCurrent.totalExpenses }}</td>
-                            <td>{{ valuation.statementPotential.totalExpenses }}</td>
+                            {% set currentGrossIncome = currentRent + currentOtherIncome %}
+                            {% set potentialGrossIncome = potentialRent + potentialOtherIncome %}
+                            {% set currentNetOperatingIncome = currentGrossIncome - currentTotalExpenses %}
+                            {% set potentialNetOperatingIncome = potentialGrossIncome - potentialTotalExpenses %}
+                            {% set currentPercentageOfEgi = (currentNetOperatingIncome / currentGrossIncome * 100).toFixed(2) %}
+                            {% set potentialPercentageOfEgi = (potentialNetOperatingIncome / potentialGrossIncome * 100).toFixed(2) %}
+                            <td>{{ currentPercentageOfEgi }}</td>
+                            <td>{{ potentialPercentageOfEgi }}</td>
                         </tr>
                         <tr>
                             <td>NET OPERATING INCOME</td>
-                            {% set currentNetOperatingIncome = currentGrossIncome - currentTotalExpenses %}
                             <td>{{ currentNetOperatingIncome }}</td>
-                            {% set potentialNetOperatingIncome = potentialGrossIncome - potentialTotalExpenses %}
                             <td>{{ potentialNetOperatingIncome }}</td>
                         </tr>
                         <tr>
@@ -497,12 +501,6 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr class="highlighted">
-                            <td>&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
                     </tbody>
                 </table>
             </section>
