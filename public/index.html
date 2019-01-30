@@ -82,11 +82,15 @@
                         <ul class="toc-list">
                             <li style="display: none;"><div class="left-column">FIRM INFORMATION </div><span class="toc-page-num">4</span></li>
                             <li style="display: none;"><div class="left-column">AGENT BIO </div><span class="toc-page-num">5</span></li>
-                            <li><div class="left-column">PROPERTY INFORMATION </div><span class="toc-page-num">4</span></li>
-                            <li><div class="left-column">PROPERTY PHOTOS </div><span class="toc-page-num">6</span></li>
-                            <li><div class="left-column">RECENT SALES </div><span class="toc-page-num">8</span></li>
-                            <li><div class="left-column">RENT COMPARABLES </div><span class="toc-page-num">11</span></li>
-                            <li><div class="left-column">PRICING AND FINANCIAL ANALYSIS </div><span class="toc-page-num">14</span></li>
+                            <li><div class="left-column">PROPERTY INFORMATION </div><span class="toc-page-num">Section 1</span></li>
+                            <li><div class="left-column">PROPERTY PHOTOS </div><span class="toc-page-num">Section 2</span></li>
+                            {% if valuation.sold_properties.length != 0 %}
+                                <li><div class="left-column">RECENT SALES </div><span class="toc-page-num">Section 3</span></li>
+                            {% endif %}
+                            {% if valuation.rented_units.length != 0 %}
+                                <li><div class="left-column">RENT COMPARABLES </div><span class="toc-page-num">Section 4</span></li>
+                            {% endif %}
+                            <li><div class="left-column">PRICING AND FINANCIAL ANALYSIS </div><span class="toc-page-num">Section 5</span></li>
                         </ul>
                     </div>
                     <div id="side-img" class="background side-img">
