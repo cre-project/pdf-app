@@ -323,7 +323,7 @@
             </section>
             {% if valuation.property_units.length != 0 %}
                 {% set lastIndexP = 0 %}
-                    {% for comp in valuation.property_units %}
+                    {% for unit in valuation.property_units %}
                         {% set lastIndexP = loop.index %}
                         {% if loop.index % 23 == 1 %}
                             <section class="page page-13">
