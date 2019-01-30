@@ -364,15 +364,16 @@
                 <div class="tnou">Total Number of Units: {{ valuation.property_units | length }}</div>
                 <table class="income-and-expenses" >
                     <thead>
-                        <tr class="highlighted">
-                            <td>Income</td>
+                        <tr>
                             <td></td>
-                            <td></td>
+                            <th>Current</th>
+                            <th>Per Unit</th>
+                            <th>Pro Forma</th>
                         </tr>
                         <tr>
+                            <th>Income</th>
                             <th></th>
-                            <th>Current</th>
-                            <th>Pro Forma</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -382,11 +383,12 @@
                                     <tr>
                                         <td>{{ field.name }}</td>
                                         <td>{{ field.current_value }}</td>
+                                        <td>{{ (field.current_value / valuation.property_units.length).toFixed(2) }}</td>
                                         <td>{{ field.potential_value }}</td>
                                     </tr>
                             {% endif %}
                         {% endfor %}
-                        <tr>
+                        <tr class="highlighted">
                             <td>EFFECTIVE RENTAL INCOME</td>
                             {% set currentRent = 0 %}
                             {% for unit in valuation.property_units %}
@@ -397,6 +399,7 @@
                                 {% set potentialRent = potentialRent + unit.potential_rent %}
                             {% endfor %}
                             <td>{{ currentRent }}</td>
+                            <td>{{ (currentRent / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialRent }}</td>
                         </tr>
                         <tr>
@@ -410,6 +413,7 @@
                                 {% endif %}
                             {% endfor %}
                             <td>{{ currentOtherIncome }}</td>
+                            <td>{{ (currentOtherIncome / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialOtherIncome }}</td>
                         </tr>
                         <tr class="highlighted">
@@ -417,6 +421,7 @@
                             {% set currentGrossIncome = currentRent + currentOtherIncome %}
                             {% set potentialGrossIncome = potentialRent + potentialOtherIncome %}
                             <td>{{ currentGrossIncome }}</td>
+                            <td>{{ (currentGrossIncome / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialGrossIncome }}</td>
                         </tr>
                         <tr>
@@ -424,15 +429,10 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr class="highlighted">
-                            <td>Expenses</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
                         <tr>
+                                <th>Expenses</th>
                                 <th></th>
-                                <th>Current</th>
-                                <th>Pro Forma</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                             {% set currentNetOperatingIncome = currentGrossIncome - currentTotalExpenses %}
@@ -442,6 +442,7 @@
                                 <tr>
                                     <td>{{ field.name }}</td>
                                     <td>{{ field.current_value }}</td>
+                                    <td>{{ (field.current_value / valuation.property_units.length).toFixed(2) }}</td>
                                     <td>{{ field.potential_value }}</td>
                                 </tr>
                             {% endif %}
@@ -451,6 +452,7 @@
                             {% set taxes = (valuation.property.price / 100) * valuation.operating_statement[0].taxes %}
                             <td>{{ valuation.operating_statement[0].taxes_label + ' %'}}</td>
                             <td>{{ taxes }}</td>
+                            <td>{{ (taxes / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ taxes }}</td>
                         <tr>
                             <td>&nbsp;</td>
@@ -467,7 +469,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr class="highlighted">
                             <td>TOTAL EXPENSES</td>
                             {% set currentTotalExpenses = 0 %}
                             {% set potentialTotalExpenses = 0 %}
@@ -478,9 +480,10 @@
                                 {% endif %}
                             {% endfor %}
                             <td>{{ currentTotalExpenses }}</td>
+                            <td>{{ (currentTotalExpenses / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialTotalExpenses }}</td>
                         </tr>
-                        <tr class="highlighted">
+                        <tr>
                             <td>% of EGI</td>
                             {% set currentGrossIncome = currentRent + currentOtherIncome %}
                             {% set potentialGrossIncome = potentialRent + potentialOtherIncome %}
@@ -489,11 +492,13 @@
                             {% set currentPercentageOfEgi = (currentNetOperatingIncome / currentGrossIncome * 100).toFixed(2) %}
                             {% set potentialPercentageOfEgi = (potentialNetOperatingIncome / potentialGrossIncome * 100).toFixed(2) %}
                             <td>{{ currentPercentageOfEgi }}</td>
+                            <td>{{ (currentPercentageOfEgi / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialPercentageOfEgi }}</td>
                         </tr>
-                        <tr>
+                        <tr class="highlighted">
                             <td>NET OPERATING INCOME</td>
                             <td>{{ currentNetOperatingIncome }}</td>
+                            <td>{{ (currentNetOperatingIncome / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialNetOperatingIncome }}</td>
                         </tr>
                         <tr>
