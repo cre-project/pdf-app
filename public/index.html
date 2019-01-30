@@ -541,7 +541,7 @@
                                 </tr>
                                 <tr>
                                     <td>Price/SF</td>
-                                    <td>$ {{ valuation.property.price / valuation.property.total_square_feet }}</td>
+                                    <td>$ {{ (valuation.property.price / valuation.property.total_square_feet).toFixed(2) }}</td>
                                 </tr>
                                 <tr>
                                     <td>CAP Rate - Current</td>
@@ -577,9 +577,6 @@
                         </table>
                     </div>
                     <div class="financial-right">
-                        <div class="table-title">
-                            Annualized Operating Data
-                        </div>
                         <table class="details">
                             <tbody>
                                 <tr>
@@ -656,13 +653,17 @@
                                     {% endif %}
                                 {% endfor %}
                                 <tr>
-                                    <td>Real Estate Taxes</td>
-                                    <td>{{ valuation.taxes }}</td>
-                                    <td>{{ valuation.taxes }}</td>
+                                    {% if valuation.operating_statement[0].taxes_label != null and valuation.operating_statement[0].taxes != null %}
+                                        <td>{{ valuation.operating_statement[0].taxes_label + ' %' }}</td>
+                                        <td>{{ valuation.operating_statement[0].taxes }}</td>
+                                        <td>{{ valuation.operating_statement[0].taxes }}</td>
+                                    {% endif %}
                                 </tr>
-                                    <td>Management Fee</td>
-                                    <td>{{ valuation.operating_statement.mgmt_fee if valuation.operating_statement.mgmt_fee != null }}</td>
-                                    <td>{{ valuation.statementPotential.mgmtFee }}</td>
+                                    {% if valuation.operating_statement[0].mgmt_fee_label != null and valuation.operating_statement[0].mgmt_fee != null %}
+                                        <td>{{ valuation.operating_statement[0].mgmt_fee_label }}</td>
+                                        <td>{{ valuation.operating_statement[0].mgmt_fee }}</td>
+                                        <td>{{ valuation.operating_statement[0].mgmt_fee }}</td>
+                                    {% endif %}
                                 </tr>
 
                                 <tr>
