@@ -591,8 +591,8 @@
                                 <tr>
                                     <td>Less: Vacancy/Deductions</td>
                                     {% set vacancy = 0 %}
-                                    {% if valuation.operating_statement.vacancy > 0 %}
-                                        {% set vacancy = valuation.operating_statement.vacancy %}
+                                    {% if valuation.operating_statement[0].vacancy > 0 %}
+                                        {% set vacancy = valuation.operating_statement[0].vacancy %}
                                     {% endif %}
                                     {% set currentVacancy = (currentRent / 100) * vacancy %}
                                     {% set potentialVacancy = (potentialRent / 100) * vacancy %}
