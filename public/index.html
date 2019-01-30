@@ -448,7 +448,8 @@
                         {% endfor %}
 
                         <tr>
-                            <td>Real Estate Taxes ({{ valuation.taxes }}%)</td>
+                            {% set taxes = (valuation.property.price / 100) * valuation.operating_statement[0].taxes %}
+                            <td>{{ valuation.operating_statement[0].taxes_label + ' %'}}</td>
                             <td>{{ taxes }}</td>
                             <td>{{ taxes }}</td>
                         <tr>
@@ -600,7 +601,7 @@
                                     <td>{{ potentialVacancy }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Rent Income</td>
+                                    <td>Gross Potential Income</td>
                                     {% set currentEffectiveRent = (currentRent - currentVacancy) %}
                                     {% set potentialEffectiveRent = (potentialRent - potentialVacancy) %}
                                     <td>{{ currentEffectiveRent }}</td>
@@ -625,8 +626,10 @@
                                 </tr>
                                 <tr class="highlighted">
                                     <td>Net Operating Income</td>
-                                    <td>{{ valuation.statementCurrent.netOperatingIncome }}</td>
-                                    <td>{{ valuation.statementPotential.netOperatingIncome }}</td>
+                                    {% set currentNetOperatingIncome = currentGrossIncome - currentTotalExpenses %}
+                                    {% set potentialNetOperatingIncome = potentialGrossIncome - potentialTotalExpenses %}
+                                    <td>{{ currentNetOperatingIncome }}</td>
+                                    <td>{{ potentialNetOperatingIncome }}</td>
                                 </tr>
                             </tbody>
                         </table>
