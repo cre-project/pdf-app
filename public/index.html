@@ -378,12 +378,12 @@
                     </thead>
                     <tbody>
                         {% for field in valuation.operating_statement_fields %}
-                            {% if field.is_income == true %}
-                                <tr>
-                                    <td>{{ field.name }}</td>
-                                    <td>{{ field.current_value }}</td>
-                                    <td>{{ field.potential_value }}</td>
-                                </tr>
+                            {% if field.is_income == true and (field.current_value != null or field.potential_value != null) %}
+                                    <tr>
+                                        <td>{{ field.name }}</td>
+                                        <td>{{ field.current_value }}</td>
+                                        <td>{{ field.potential_value }}</td>
+                                    </tr>
                             {% endif %}
                         {% endfor %}
                         <tr>
@@ -438,7 +438,7 @@
                             {% set currentNetOperatingIncome = currentGrossIncome - currentTotalExpenses %}
                             {% set potentialNetOperatingIncome = potentialGrossIncome - potentialTotalExpenses %}
                         {% for field in valuation.operating_statement_fields %}
-                            {% if field.is_income == false %}
+                            {% if field.is_income == false and (field.current_value != null or field.potential_value != null) %}
                                 <tr>
                                     <td>{{ field.name }}</td>
                                     <td>{{ field.current_value }}</td>
