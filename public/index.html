@@ -430,11 +430,11 @@
                             <td></td>
                         </tr>
                         <tr>
-                                <th>Expenses</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                            <th>Expenses</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                             {% set currentNetOperatingIncome = currentGrossIncome - currentTotalExpenses %}
                             {% set potentialNetOperatingIncome = potentialGrossIncome - potentialTotalExpenses %}
                         {% for field in valuation.operating_statement_fields %}
@@ -577,10 +577,13 @@
                         </table>
                     </div>
                     <div class="financial-right">
+                        <div class="table-title">
+                            Income
+                        </div>
                         <table class="details">
                             <tbody>
                                 <tr>
-                                    <th class="first">Income</th>
+                                    <th class="first"></th>
                                     <th>Current</th>
                                     <th>Pro Forma</th>
                                 </tr>
@@ -643,8 +646,13 @@
                         </div>
                         <table class="details">
                             <tbody>
+                                <tr>
+                                    <th class="first"></th>
+                                    <th>Current</th>
+                                    <th>Pro Forma</th>
+                                </tr>
                                 {% for field in valuation.operating_statement_fields %}
-                                    {% if field.is_income == false %}
+                                    {% if field.is_income == false and (field.current_value != null or field.potential_value != null) %}
                                         <tr>
                                             <td>{{ field.name }}</td>
                                             <td>{{ field.current_value }}</td>
@@ -665,31 +673,30 @@
                                         <td>{{ valuation.operating_statement[0].mgmt_fee }}</td>
                                     {% endif %}
                                 </tr>
-
                                 <tr>
                                     <td class="devider">Other Expenses</td>
-                                    <td>{{ valuation.statementCurrent.expenses.other }}</td>
-                                    <td>{{ valuation.statementPotential.expenses.other }}</td>
+                                    <td class="devider">{{ currentTotalExpenses }}</td>
+                                    <td class="devider">{{ potentialTotalExpenses }}</td>
                                 </tr>
                                 <tr  class="highlighted">
                                     <td>Total Expenses</td>
-                                    <td>{{ valuation.statementCurrent.totalExpenses }}</td>
-                                    <td>{{ valuation.statementPotential.totalExpenses }}</td>
+                                    <td>{{ currentTotalExpenses }}</td>
+                                    <td>{{ potentialTotalExpenses }}</td>
                                 </tr>
                                 <tr  class="highlighted">
                                     <td>Expenses/unit</td>
-                                    <td>{{ valuation.statementCurrent.totalExpensesUnit }}</td>
-                                    <td>{{ valuation.statementPotential.totalExpensesUnit }}</td>
+                                    <td>{{ (currentTotalExpenses / valuation.property_units.length).toFixed(2) }}</td>
+                                    <td>{{ (potentialTotalExpenses / valuation.property_units.length).toFixed(2) }}</td>
                                 </tr>
                                 <tr class="highlighted">
                                     <td>Expenses/SF</td>
-                                    <td>{{ valuation.statementCurrent.totalExpensesSf }}</td>
-                                    <td>{{ valuation.statementPotential.totalExpensesSf }}</td>
+                                    <td>{{ (currentTotalExpenses / valuation.property.total_square_feet).toFixed(2) }}</td>
+                                    <td>{{ (potentialTotalExpenses / valuation.property.total_square_feet).toFixed(2) }}</td>
                                 </tr>
                                 <tr  class="highlighted">
                                     <td>% of EGI</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ currentPercentageOfEgi }}</td>
+                                    <td>{{ potentialPercentageOfEgi }}</td>
                                 </tr>
                             </tbody>
                         </table>
