@@ -45,9 +45,6 @@ function removeSpacing(elements) {
 }
 
 function setImgUrl(input) {
-    /**
-        photo-1, photo-2, photo-3, photo-4 => property pictures
-     */
     if (input.files && input.files[0]) {
         let file = input.files[0]
         let reader = new FileReader();

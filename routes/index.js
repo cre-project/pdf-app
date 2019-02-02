@@ -1,5 +1,5 @@
-import express from 'express'
-import request from 'request'
+let express = require('express')
+let request = require('request')
 
 let router = express.Router();
 
@@ -11,16 +11,20 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS
 
 /** Mapping image IDS -> DB columns */
 const IMAGE_IDS = {
-'page-1': 'cover_image_url',
-'page-2': 'information_image_url',
-'side-img': 'table_of_contents_image_url',
-'page-17':'property_information_cover_image_url',
-'side-img-2':'property_information_image_url',
-'page-6':'property_photos_cover_image_url',
-'page-8':'recent_sales_cover_image_url',
-'page-10':'rent_comparables_cover_image_url',
-'page-12':'pricing_cover_image_url',
-'page-14':'closing_cover_image_url'
+  'page-1': 'cover_image_url',
+  'page-2': 'information_image_url',
+  'page-6': 'property_photos_cover_image_url',
+  'page-8': 'recent_sales_cover_image_url',
+  'page-10': 'rent_comparables_cover_image_url',
+  'page-12': 'pricing_cover_image_url',
+  'page-14': 'closing_cover_image_url',
+  'page-17': 'property_information_cover_image_url',
+  'photo-1': 'property_image_1',
+  'photo-2': 'property_image_2',
+  'photo-3': 'property_image_3',
+  'photo-4': 'property_image_4',
+  'side-img': 'table_of_contents_image_url',
+  'side-img-2': 'property_information_image_url'
 }
 
 /**
