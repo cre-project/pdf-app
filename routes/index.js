@@ -1,12 +1,31 @@
-var express = require('express');
-var router = express.Router();
-var request = require('request');
+import express from 'express'
+import request from 'request'
 
+let router = express.Router();
+
+/** Env variables */
 const API_URL = process.env.API_URL || 'http://localhost:3000/api';
 const BACKEND_API_KEY = process.env.BACKEND_API_KEY || 'xxx';
 const GOOGLE_MAPS_API = process.env.GOOGLE_API_MAPS_API
 const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API}&callback=initMap`
 
+/** Mapping image IDS -> DB columns */
+const IMAGE_IDS = {
+'page-1': 'cover_image_url',
+'page-2': 'information_image_url',
+'side-img': 'table_of_contents_image_url',
+'page-17':'property_information_cover_image_url',
+'side-img-2':'property_information_image_url',
+'page-6':'property_photos_cover_image_url',
+'page-8':'recent_sales_cover_image_url',
+'page-10':'rent_comparables_cover_image_url',
+'page-12':'pricing_cover_image_url',
+'page-14':'closing_cover_image_url'
+}
+
+/**
+ * ROUTES
+ */
 router.get('/:packageId', function(req, res) {
   const options = {
     url: `${API_URL}/packages/${req.params.packageId}/full_package`,
@@ -16,7 +35,7 @@ router.get('/:packageId', function(req, res) {
   }
 
   request.get(options, function(error, response, body) {
-    if (!response.statusCode === 200 || error) {
+    if (error || !response || response.statusCode !== 200) {
       res.status(403).send('Package not found')
       return
     }
@@ -25,7 +44,6 @@ router.get('/:packageId', function(req, res) {
       let responseBody = JSON.parse(body);
       pkg = responseBody['package'];
       user = responseBody['user'];
-      console.log(process.env.GOOGLE_MAPS_API_KEY)
       if (pkg && user) {
         res.render('index', { valuation: pkg, user: user });
       } else {
@@ -38,4 +56,31 @@ router.get('/:packageId', function(req, res) {
   });
 });
 
-module.exports = router;
+router.post('/api/saveImage', function (req, res) {
+  const { packageID, imageID, url } = req.body
+  let body = { package: {}}
+  body.package[IMAGE_IDS[imageID]] = url
+
+  const options = {
+    url: `${API_URL}/packages/${packageID}`,
+    headers: {
+      PDF_APP_API_KEY: BACKEND_API_KEY,
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    body: JSON.stringify(body)
+  }
+
+  request.put(options, function (error, response, body) {
+    if (error || !response || response.statusCode !== 200) {
+      res.status(500).send('Image could not be saved')
+      return
+    }
+    res.status(200).send('Image saved')
+  })
+})
+
+router.get('*', function(res) {
+  res.status(200)
+})
+
+module.exports = router

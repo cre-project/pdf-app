@@ -1,14 +1,18 @@
-var doc = new jsPDF('l', 'in', [17, 22]);
-var sections = document.getElementsByTagName("SECTION");
-var tempPage = 0;
-var imgButtons = document.getElementsByClassName("image-upload");
-var imgInputs = document.getElementsByTagName("input");
-var needSpacing = document.getElementsByClassName('letter-spacer');
+const IMAGE_ENDPOINT = 'https://cre-backend-testing.herokuapp.com/api/saveImage'
+const CLOUDINARY_PRESET = ''
+const CLOUDINARY_UPLOAD_URL=''
+
+let doc = new jsPDF('l', 'in', [17, 22]);
+let sections = document.getElementsByTagName("SECTION");
+let tempPage = 0;
+let imgButtons = document.getElementsByClassName("image-upload");
+let imgInputs = document.getElementsByTagName("input");
+let needSpacing = document.getElementsByClassName('letter-spacer');
 
 function changeCSS(cssFile, cssLinkIndex) {
 
-    var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
-    var newlink = document.createElement("link");
+    let oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+    let newlink = document.createElement("link");
 
     newlink.setAttribute("rel", "stylesheet");
     newlink.setAttribute("type", "text/css");
@@ -18,35 +22,39 @@ function changeCSS(cssFile, cssLinkIndex) {
 }
 
 function selectElementImage(button) {
-    var input = document.getElementsByName(button.getAttribute("data-target"))[0];
+    let input = document.getElementsByName(button.getAttribute("data-target"))[0];
     input.click();
 }
 
 //We need this as jsPDF doesn't render CSS3 Letter spacing. So we have to fake it.
 function addSpacing(elements) {
-    for (var i = 0; i < elements.length; i++) {
+    for (let i = 0; i < elements.length; i++) {
         elements[i].classList.add("no-letter-spacing");
         elements[i].originalText = elements[i].innerHTML;
-        var renderedText = elements[i].innerHTML.trim();
+        let renderedText = elements[i].innerHTML.trim();
         elements[i].spacedText = renderedText.split('').join('&nbsp;');
         elements[i].innerHTML = elements[i].spacedText;
     }
 }
 
 function removeSpacing(elements) {
-    for (var i = 0; i < elements.length; i++) {
+    for (let i = 0; i < elements.length; i++) {
         elements[i].classList.remove("no-letter-spacing");
         elements[i].innerHTML = elements[i].originalText;
     }
 }
 
 function setImgUrl(input) {
+    /**
+        photo-1, photo-2, photo-3, photo-4 => property pictures
+     */
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        let file = input.files[0]
+        let reader = new FileReader();
 
         reader.onload = function (e) {
 
-            var targetEl = document.getElementById(input.getAttribute("name"));
+            let targetEl = document.getElementById(input.getAttribute("name"));
 
             if (targetEl.tagName == "DIV") {
                 targetEl.style.backgroundImage = "url(" + e.target.result + ")";
@@ -56,14 +64,67 @@ function setImgUrl(input) {
                 console.log('Element does not support image visualisations')
             }
         }
-        reader.readAsDataURL(input.files[0]);
+
+        // upload image to cloudinary & save to DB
+        upload(file, input.getAttribute('name'))
+        reader.readAsDataURL(file);
     }
 }
 
-function toggle(className, displayState) {
-    var elements = document.getElementsByClassName(className)
 
-    for (var i = 0; i < elements.length; i++) {
+// *********** Upload file to Cloudinary && save in DB ******************** //
+function upload(file, imageID) {
+    let xhr = new XMLHttpRequest()
+    let fd = new FormData()
+    xhr.open('POST', CLOUDINARY_UPLOAD_URL, true)
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+    xhr.onreadystatechange = function (e) {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+                // file uploaded successfully
+                let response = JSON.parse(xhr.responseText)
+                let url = response.secure_url
+
+                // store image URL in the database
+                saveImage(url, imageID)
+            } catch (e) {
+                console.log(`Cloudinary response could not be handled: ${e}`)
+            }
+        } else if (xhr.readyState === 4 && xhr.status !== 200) {
+            console.log(`Non-200 status from Cloudinary: ${xhr.statusText}`)
+        }
+    }
+
+    // preset is needed for unsigned uploads
+    fd.append('upload_preset', CLOUDINARY_PRESET)
+    fd.append('file', file)
+    xhr.send(fd)
+}
+
+// send request to the backend to save the image
+function saveImage(url, imageID) {
+    const pathParts = window.location.href.split('/')
+    const packageID = pathParts[pathParts.length - 1]
+    let body = { imageID: imageID, packageID: packageID, url: url } 
+
+    let req = new XMLHttpRequest()
+    req.open('POST', IMAGE_ENDPOINT, true)
+    req.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+    req.onreadystatechange = function (e) {
+        if (req.readyState === 4 && req.status === 200) {
+            console.log(`Image ${imageID} was saved`)
+        } else if (req.readyState === 4 && req.status !== 200) {
+            console.log(`Image ${imageID} could not be saved`, req.statusText)
+        }
+    }
+    req.send(JSON.stringify(body))
+}
+
+function toggle(className, displayState) {
+    let elements = document.getElementsByClassName(className)
+
+    for (let i = 0; i < elements.length; i++) {
         elements[i].style.display = displayState;
     }
 }
@@ -76,7 +137,7 @@ async function addPageAndCanvas() {
             addPageAndCanvas();
         } else {
             await sleep(2000);
-            doc.save('valuation.pdf');
+            doc.save('package.pdf');
             changeCSS('html-preview.css', 0);
             removeSpacing(needSpacing);
             toggle('hide-on-save', 'block');
@@ -96,20 +157,20 @@ function savePDF() {
 }
 
 function downloadPDF() {
-    doc.save('sample-file1.pdf');
+    doc.save('package.pdf');
 }
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   
-for (var i = 0; i < imgButtons.length; ++i) {
+for (let i = 0; i < imgButtons.length; ++i) {
     imgButtons[i].addEventListener("click", function (button) {
         selectElementImage(this)
     });
 }
 
-for (var i = 0; i < imgInputs.length; ++i) {
+for (let i = 0; i < imgInputs.length; ++i) {
     if (imgInputs[i].getAttribute("type") == "file") {
         imgInputs[i].addEventListener("change", function (input) {
             setImgUrl(this);
