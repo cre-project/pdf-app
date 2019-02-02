@@ -369,9 +369,11 @@
                             <th>Current</th>
                             <th>Per Unit</th>
                             <th>Pro Forma</th>
+                            <th>Per Unit</th>
                         </tr>
                         <tr>
                             <th>Income</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -385,6 +387,7 @@
                                         <td>{{ field.current_value }}</td>
                                         <td>{{ (field.current_value / valuation.property_units.length).toFixed(2) }}</td>
                                         <td>{{ field.potential_value }}</td>
+                                        <td>{{ (field.potential_value / valuation.property_units.length).toFixed(2) }}</td>
                                     </tr>
                             {% endif %}
                         {% endfor %}
@@ -401,6 +404,7 @@
                             <td>{{ currentRent }}</td>
                             <td>{{ (currentRent / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialRent }}</td>
+                            <td>{{ (potentialRent / valuation.property_units.length).toFixed(2) }}</td>
                         </tr>
                         <tr>
                             <td>Total Other Income</td>
@@ -415,6 +419,7 @@
                             <td>{{ currentOtherIncome }}</td>
                             <td>{{ (currentOtherIncome / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialOtherIncome }}</td>
+                            <td>{{ (potentialOtherIncome / valuation.property_units.length).toFixed(2) }}</td>
                         </tr>
                         <tr class="highlighted">
                             <td>EFFECTIVE GROSS INCOME</td>
@@ -423,6 +428,7 @@
                             <td>{{ currentGrossIncome }}</td>
                             <td>{{ (currentGrossIncome / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialGrossIncome }}</td>
+                            <td>{{ (potentialGrossIncome / valuation.property_units.length).toFixed(2) }}</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -431,6 +437,7 @@
                         </tr>
                         <tr>
                             <th>Expenses</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -444,16 +451,26 @@
                                     <td>{{ field.current_value }}</td>
                                     <td>{{ (field.current_value / valuation.property_units.length).toFixed(2) }}</td>
                                     <td>{{ field.potential_value }}</td>
+                                    <td>{{ (field.potential_value / valuation.property_units.length).toFixed(2) }}</td>
                                 </tr>
                             {% endif %}
                         {% endfor %}
 
                         <tr>
                             {% set taxes = (valuation.property.price / 100) * valuation.operating_statement[0].taxes %}
-                            <td>{{ valuation.operating_statement[0].taxes_label + ' %'}}</td>
+                            <td>{{ valuation.operating_statement[0].taxes_label if valuation.operating_statement[0].taxes_label != null }}</td>
                             <td>{{ taxes }}</td>
                             <td>{{ (taxes / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ taxes }}</td>
+                            <td>{{ (taxes / valuation.property_units.length).toFixed(2) }}</td>
+                        <tr>
+                        <tr>
+                            {% set mgmtFee = (valuation.property.price / 100) * valuation.operating_statement[0].mgmt_fee %}
+                            <td>{{ valuation.operating_statement[0].mgmt_fee_label }}</td>
+                            <td>{{ mgmtFee }}</td>
+                            <td>{{ (mgmtFee / valuation.property_units.length).toFixed(2) }}</td>
+                            <td>{{ mgmtFee }}</td>
+                            <td>{{ (mgmtFee / valuation.property_units.length).toFixed(2) }}</td>
                         <tr>
                             <td>&nbsp;</td>
                             <td></td>
@@ -479,9 +496,10 @@
                                     {% set potentialTotalExpenses = potentialTotalExpenses + field.potential_value %}
                                 {% endif %}
                             {% endfor %}
-                            <td>{{ currentTotalExpenses }}</td>
+                            <td>{{ currentTotalExpenses + (mgmtFee if valuation.operating_statement[0].mgmt_fee != null) + (taxes if valuation.operating_statement[0].taxes != null) }}</td>
                             <td>{{ (currentTotalExpenses / valuation.property_units.length).toFixed(2) }}</td>
-                            <td>{{ potentialTotalExpenses }}</td>
+                            <td>{{ potentialTotalExpenses + mgmtFee + taxes }}</td>
+                            <td>{{ (potentialTotalExpenses / valuation.property_units.length).toFixed(2) }}</td>
                         </tr>
                         <tr>
                             <td>% of EGI</td>
@@ -494,12 +512,14 @@
                             <td>{{ currentPercentageOfEgi }}</td>
                             <td>{{ (currentPercentageOfEgi / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialPercentageOfEgi }}</td>
+                            <td>{{ (potentialPercentageOfEgi / valuation.property_units.length).toFixed(2) }}</td>
                         </tr>
                         <tr class="highlighted">
                             <td>NET OPERATING INCOME</td>
                             <td>{{ currentNetOperatingIncome }}</td>
                             <td>{{ (currentNetOperatingIncome / valuation.property_units.length).toFixed(2) }}</td>
                             <td>{{ potentialNetOperatingIncome }}</td>
+                            <td>{{ (potentialNetOperatingIncome / valuation.property_units.length).toFixed(2) }}</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -661,16 +681,16 @@
                                     {% endif %}
                                 {% endfor %}
                                 <tr>
-                                    {% if valuation.operating_statement[0].taxes_label != null and valuation.operating_statement[0].taxes != null %}
-                                        <td>{{ valuation.operating_statement[0].taxes_label + ' %' }}</td>
-                                        <td>{{ valuation.operating_statement[0].taxes }}</td>
-                                        <td>{{ valuation.operating_statement[0].taxes }}</td>
+                                    {% if valuation.operating_statement[0].taxes != null %}
+                                        <td>{{ valuation.operating_statement[0].taxes_label if valuation.operating_statement[0].taxes_label != null }}</td>
+                                        <td>{{ taxes }}</td>
+                                        <td>{{ taxes }}</td>
                                     {% endif %}
                                 </tr>
-                                    {% if valuation.operating_statement[0].mgmt_fee_label != null and valuation.operating_statement[0].mgmt_fee != null %}
+                                    {% if valuation.operating_statement[0].mgmt_fee != null %}
                                         <td>{{ valuation.operating_statement[0].mgmt_fee_label }}</td>
-                                        <td>{{ valuation.operating_statement[0].mgmt_fee }}</td>
-                                        <td>{{ valuation.operating_statement[0].mgmt_fee }}</td>
+                                        <td>{{ mgmtFee }}</td>
+                                        <td>{{ mgmtFee }}</td>
                                     {% endif %}
                                 </tr>
                                 <tr>
@@ -680,8 +700,8 @@
                                 </tr>
                                 <tr  class="highlighted">
                                     <td>Total Expenses</td>
-                                    <td>{{ currentTotalExpenses }}</td>
-                                    <td>{{ potentialTotalExpenses }}</td>
+                                    <td>{{ currentTotalExpenses + (mgmtFee if valuation.operating_statement[0].mgmt_fee != null) + (taxes if valuation.operating_statement[0].taxes != null) }}</td>
+                                    <td>{{ potentialTotalExpenses + (mgmtFee if valuation.operating_statement[0].mgmt_fee != null) + (taxes if valuation.operating_statement[0].taxes != null) }}</td>
                                 </tr>
                                 <tr  class="highlighted">
                                     <td>Expenses/unit</td>
