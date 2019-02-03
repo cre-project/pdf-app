@@ -30,7 +30,7 @@
 
         <div class="html-preview" style="margin-left: 250px;">
             <section id="testPage" class="page page-1">
-                <div id="page-1" class="background">
+                <div id="page-1" class="background" style="background:url({{ images['page-1'] }}) no-repeat center center; background-size:cover;">
                     <button class="image-upload hide-on-save" data-target="page-1"><i class="fas fa-camera"></i></button>
                     <input type="file" name="page-1" class="img-inputer"/>
                     <div class="header">
@@ -49,7 +49,7 @@
                 </div>
             </section>
             <section class="page page-2">
-                <div id="page-2" class="background">
+                <div id="page-2" class="background" style="background:url({{ images['page-2'] }}) no-repeat center center; background-size:cover;">
                     <button class="image-upload hide-on-save" data-target="page-2"><i class="fas fa-camera"></i></button>
                     <input type="file" name="page-2" class="img-inputer"/>
                     <div class="sidebar right">
@@ -70,7 +70,7 @@
                 </div>
             </section>
             <section class="page page-3">
-                <div id="page-3" class="background">
+                <div id="page-3" class="background" style="background:url({{ images['page-3'] }}) no-repeat center center; background-size:cover;">
                     <button class="image-upload hide-on-save" data-target="page-3"><i class="fas fa-camera"></i></button>
                     <input type="file" name="page-3" class="img-inputer"/>
                     <div class="sidebar">
@@ -107,7 +107,7 @@
                         </section>-->
             <section class="page page-18">
                 <div class="vertical title left letter-spacer">PROPERTY INFORMATION</div>
-                <div id="page-17" class="background">
+                <div id="page-17" class="background" style="background:url({{ images['page-17'] }}) no-repeat center center; background-size:cover;">
                     <button class="image-upload hide-on-save" data-target="page-17"><i class="fas fa-camera"></i></button>
                     <input type="file" name="page-17" class="img-inputer"/>
                 </div>
@@ -152,7 +152,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="side-img-2" class="background side-img">
+                <div id="side-img-2" class="background side-img" style="background:url({{ images['side-img-2'] }}) no-repeat center center; background-size:cover;">
                     <button class="image-upload hide-on-save" data-target="side-img-2"><i class="fas fa-camera"></i></button>
                     <input type="file" name="side-img-2" class="img-inputer"/>
                 </div>
@@ -169,21 +169,22 @@
                 <div class="title letter-spacer">PROPERTY PHOTOS</div>
                 <div class="photos">
                     <div class="photo">
-                        <div id="photo-1" class="background"></div>
+                        <div id="photo-1" class="background" style="background:url({{ images['photo-1'] }}) no-repeat center center; background-size:cover;"></div>
                         <button class="image-upload hide-on-save" data-target="photo-1"><i class="fas fa-camera"></i></button>
                         <input type="file" name="photo-1" class="img-inputer"/>
                     </div>
                     <div class="photo">
-                        <div id="photo-2" class="background"></div>
+                        <div id="photo-2" class="background" style="background:url({{ images['photo-2'] }}) no-repeat center center; background-size:cover;"></div>
                         <button class="image-upload hide-on-save" data-target="photo-2"><i class="fas fa-camera"></i></button>
                         <input type="file" name="photo-2" class="img-inputer"/>
                     </div>
                     <div class="photo">
-                        <div id="photo-3" class="background"></div>
+                        <div id="photo-3" class="background" style="background:url({{ images['photo-3'] }}) no-repeat center center; background-size:cover;"></div>
                         <button class="image-upload hide-on-save" data-target="photo-3"><i class="fas fa-camera"></i></button>
                         <input type="file" name="photo-3" class="img-inputer"/>
                     </div>
                     <div class="photo">
+                        <div id="photo-4" class="background" style="background:url({{ images['photo-4'] }}) no-repeat center center; background-size:cover;"></div>
                         <div id="photo-4" class="background"></div>
                         <button class="image-upload hide-on-save" data-target="photo-4"><i class="fas fa-camera"></i></button>
                         <input type="file" name="photo-4" class="img-inputer"/>
@@ -193,7 +194,7 @@
             {% if valuation.sold_properties.length != 0 %}
                 <section class="page page-8">
                     <div class="vertical title left letter-spacer">RECENT SALES</div>
-                    <div id="page-8" class="background">
+                    <div id="page-8" class="background" style="background:url({{ images['page-8'] }}) no-repeat center center; background-size:cover;"></div>
                         <button class="image-upload hide-on-save" data-target="page-8"><i class="fas fa-camera"></i></button>
                         <input type="file" name="page-8" class="img-inputer" />
                     </div>
@@ -225,7 +226,11 @@
                         <div class="sales-items recent-sales-middle">
                 {% endif %}
                             <div class="item">
-                                <img src="./images/Untitled_09.jpg">
+                                {% if comp.image_url %}
+                                    <img src="{{ comp.image_url }}">
+                                {% else %}
+                                    <img src="./images/Untitled_09.jpg">
+                                {% endif %}
                                 <div class="address">{{ comp.address.street + ' ' + comp.address.city if comp.address.street != null and comp.address.city != null }}</div>
                                 <ul class="item-list">
                                     <li>No. of Units: <div class="data-right">{{ comp.num_units if comp.num_units != null }}</div>
@@ -260,7 +265,7 @@
             {% if valuation.rented_units.length != 0 %}
                 <section class="page page-10">
                     <div class="vertical title right letter-spacer">RENT COMPARABLES</div>
-                    <div id="page-10" class="background">
+                    <div id="page-10" class="background" style="background:url({{ images['page-10'] }}) no-repeat center center; background-size:cover;"></div>
                         <button class="image-upload hide-on-save" data-target="page-10"><i class="fas fa-camera"></i></button>
                         <input type="file" name="page-10" class="img-inputer" />
                     </div>
@@ -293,7 +298,11 @@
                             <div class="sales-items rent-comparables-middle">
                     {% endif %}
                                 <div class="item">
-                                    <img src="./images/Untitled_09.jpg">
+                                    {% if comp.image_url %}
+                                        <img src="{{ comp.image_url }}">
+                                    {% else %}
+                                        <img src="./images/Untitled_09.jpg">
+                                    {% endif %}
                                     <div class="address">{{ comp.address.street + ' ' + comp.address.city if comp.address.street != null and comp.address.city != null }}</div>
                                     <ul class="item-list">
                                         <li>Year Built: <div class="data-right">{{ comp.year_built if comp.year_built != null }}</div>
@@ -316,7 +325,7 @@
             {% endif %}
             <section class="page page-12">
                 <div class="vertical title right letter-spacer">PRICING AND FINANCIAL ANALYSIS</div>
-                <div id="page-12" class="background">
+                <div id="page-12" class="background" style="background:url({{ images['page-12'] }}) no-repeat center center; background-size:cover;"></div>
                     <button class="image-upload hide-on-save" data-target="page-12"><i class="fas fa-camera"></i></button>
                     <input type="file" name="page-12" class="img-inputer"/>
                 </div>
@@ -724,7 +733,7 @@
                 </div>
             </section>
             <section class="page page-14">
-                <div id="page-14" class="background">
+                <div id="page-14" class="background" style="background:url({{ images['page-14'] }}) no-repeat center center; background-size:cover;"></div>
                     <button class="image-upload hide-on-save" data-target="page-14"><i class="fas fa-camera"></i></button>
                     <input type="file" name="page-14" class="img-inputer"/>
                 </div>
@@ -751,6 +760,6 @@
         </div>
         <script id="maps-url" async defer></script>
         <script src='./javascripts/html-preview.js'></script>
-        <script src='./javascripts/maps.js'></script>
+        <!-- <script src='./javascripts/maps.js'></script> -->
     </body>
 </html>

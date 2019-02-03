@@ -106,7 +106,6 @@ section {
   background-position: center;
 }
 .page-1 .background {
-  background-image: url(../../images/Untitled.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -161,7 +160,6 @@ section {
   z-index: 2;
 }
 .page-2 .background {
-  background-image: url(../../images/Untitled_02.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -238,7 +236,6 @@ section {
   padding-bottom: 20px;
 }
 .side-img {
-  background-image: url(../../images/Untitled_04.jpg);
   width: 35%;
   position: absolute;
   right: 0px;
@@ -300,7 +297,6 @@ section {
   font-size: 170%;
 }
 .page-6 .background {
-  background-image: url(../../images/Untitled_05.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -309,7 +305,6 @@ section {
   z-index: 1;
 }
 .page-8 .background {
-  background-image: url(../../images/Untitled_07.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -318,7 +313,6 @@ section {
   z-index: 1;
 }
 .page-9 .background {
-  background-image: url(../../images/Untitled_03.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -405,7 +399,6 @@ section {
   background-color: #c7c7c7;
 }
 .page-10 .background {
-  background-image: url(../../images/Untitled.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -414,7 +407,6 @@ section {
   z-index: 1;
 }
 .page-11 .background {
-  background-image: url(../../images/Untitled_03.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -443,7 +435,6 @@ section {
   max-width: 240px;
 }
 .page-12 .background {
-  background-image: url(../../images/Untitled_10.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -484,7 +475,6 @@ section {
   font-size: 9px;
 }
 .page-14 .background {
-  background-image: url(../../images/Untitled_11.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -493,7 +483,6 @@ section {
   z-index: 1;
 }
 .page-15 .background {
-  background-image: url(../../images/Untitled_02.jpg);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -628,7 +617,6 @@ section {
   width: 20%;
 }
 .page-18 .background {
-  background-image: url(../../images/Untitled_07.jpg);
   position: absolute;
   height: 100%;
   width: 100%;

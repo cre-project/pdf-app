@@ -27,6 +27,31 @@ const IMAGE_IDS = {
   'side-img-2': 'property_information_image_url'
 }
 
+/** Helpers */
+function getImageURLs (pkg) {
+  let p = pkg && pkg['package'] ? pkg['package'] : {}
+
+  let imageURLs = {
+    'page-1': p.cover_image_url || '../../images/Untitled.jpg',
+    'page-2': p.information_image_url || '../../images/Untitled_02.jpg',
+    'page-6': p.property_photos_cover_image_url || '../../images/Untitled_05.jpg',
+    'page-8': p.recent_sales_cover_image_url || '../../images/Untitled_07.jpg',
+    'page-10': p.rent_comparables_cover_image_url || '../../images/Untitled.jpg',
+    'page-12': p.pricing_cover_image_url || '../../images/Untitled_10.jpg', 
+    'page-14': p.closing_cover_image_url || '../../images/Untitled_11.jpg',
+    'page-17': p.property_information_cover_image_url || '../../images/Untitled_07.jpg',
+    'photo-1': p.property_image_1 || '',
+    'photo-2': p.property_image_2 || '',
+    'photo-3': p.property_image_3 || '',
+    'photo-4': p.property_image_4 || '',
+    'side-img': p.table_of_contents_image_url || '../../images/Untitled_04.jpg',
+    'side-img-2': p.property_information_image_url || '../../images/Untitled_04.jpg'
+  }
+
+  return imageURLs
+}
+
+
 /**
  * ROUTES
  */
@@ -49,7 +74,7 @@ router.get('/:packageId', function(req, res) {
       pkg = responseBody['package'];
       user = responseBody['user'];
       if (pkg && user) {
-        res.render('index', { valuation: pkg, user: user });
+        res.render('index', { valuation: pkg, user: user, images: getImageURLs(pkg)});
       } else {
         res.status(403).send('Package not found');
       }
