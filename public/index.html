@@ -212,7 +212,9 @@
                         </div>
                         <div class="map-holder">
                             <span class="helper"></span>
-                            <div id="map"></div>
+                            <div>
+                                <img id="map" alt="Sales Comparables Map" src="{{ valuation.salesCompMapURL }}">
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -283,7 +285,9 @@
                         </div>
                         <div class="map-holder right">
                             <span class="helper"></span>
-                            <div id="mapTwo"></div>
+                            <div>
+                                <img id="mapTwo" alt="Rent Comparables Map" src="{{ valuation.rentCompMapURL }}">
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -757,8 +761,6 @@
                             </div>
                         </section>-->
         </div>
-        <script id="maps-url" async defer></script>
         <script src='./javascripts/html-preview.js'></script>
-        <script src='./javascripts/maps.js'></script>
     </body>
 </html>

@@ -2,12 +2,11 @@ let express = require('express')
 let request = require('request')
 let helpers = require('./../helpers.js')
 
-let router = express.Router();
+let router = express.Router()
 
 /** Env variables */
-const API_URL = process.env.API_URL || 'http://localhost:3000/api';
-const BACKEND_API_KEY = process.env.BACKEND_API_KEY || 'xxx';
-const GOOGLE_MAPS_API = process.env.GOOGLE_API_MAPS_API
+const API_URL = process.env.API_URL || 'http://localhost:3000/api'
+const BACKEND_API_KEY = process.env.BACKEND_API_KEY || 'xxx'
 
 /** Mapping image IDS -> DB columns */
 const IMAGE_IDS = {
@@ -46,21 +45,28 @@ router.get('/:packageId', function(req, res) {
     }
 
     try {
-      let responseBody = JSON.parse(body);
+      let responseBody = JSON.parse(body)
       pkg = responseBody['package']
       user = responseBody['user']
 
       if (pkg && user) {
-        res.render('index', { valuation: pkg, user: user, images: helpers.getImageURLs(pkg)});
+        helpers.addCoordinatesToPackage(pkg).then(pkg => {
+          pkg = helpers.addMapURLs(pkg)
+          pkg.property = pkg.property[0]
+          res.render('index', { valuation: pkg, user: user, images: helpers.getImageURLs(pkg)})
+        }).catch((e) => {
+          console.log(e)
+          res.status(403).send('Package not found')
+        })
       } else {
-        res.status(403).send('Package not found');
+        res.status(403).send('Package not found')
       }
     } catch (e) {
-      console.log('Error parsing response: ', e.message || e);
-      res.status(403).send('Package not found');
+      console.log('Error parsing response: ', e.message || e)
+      res.status(403).send('Package not found')
     }
-  });
-});
+  })
+})
 
 router.post('/api/saveImage', function (req, res) {
   const { packageID, imageID, url } = req.body
@@ -83,43 +89,6 @@ router.post('/api/saveImage', function (req, res) {
     }
     res.status(200).send('Image saved')
   })
-})
-
-router.get('/api/:id', function (req, res) {
-  console.log('REQUEST 1')
-  const options = {
-    url: `${API_URL}/packages/${req.params.id}/full_package`,
-    headers: {
-      PDF_APP_API_KEY: BACKEND_API_KEY
-    }
-  }
-
-  request.get(options, function(error, response, body) {
-    console.log('REQUEST')
-    if (error || !response || response.statusCode !== 200) {
-      res.status(403).send('Package not found')
-      return
-    }
-
-    try {
-      let responseBody = JSON.parse(body);
-      pkg = responseBody['package']
-
-      if (pkg) {
-        helpers.addCoordinatesToPackage(pkg).then(pkg => {
-          res.status(200).send(pkg)
-        }).catch((e) => {
-          console.log(e)
-          res.status(403).send('Package not found');
-        })
-      } else {
-        res.status(403).send('Package not found');
-      }
-    } catch (e) {
-      console.log('Error parsing response: ', e.message || e);
-      res.status(403).send('Package not found');
-    }
-  });
 })
 
 router.get('*', function(res) {

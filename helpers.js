@@ -1,5 +1,7 @@
+const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY || ''
+
 const googleMapsClient = require('@google/maps').createClient({
-    key: process.env.GOOGLE_MAPS_API_KEY || '',
+    key: MAPS_KEY,
     Promise: Promise
 })
 
@@ -77,4 +79,44 @@ async function addCoordinatesToPackage(pkg) {
   return Promise.resolve(pkg)
 }
 
-module.exports = { addCoordinatesToPackage, getImageURLs }
+function addMapURLs(pkg) {
+  let property = pkg.property[0]
+  let rentComps = pkg.rented_units
+  let salesComps = pkg.sold_properties
+
+  if (property && property.lat && property.lng) {
+    // generate static map URL, center map on property location & add pin for property
+    let baseMapURL = `https://maps.googleapis.com/maps/api/staticmap?center=${property.lat},${property.lng}&zoom=13&maptype=roadmap&size=700x800&markers=color:red%7C${property.lat},${property.lng}`
+
+    // Rent comps map: pin for property + pins of a different color for all rented units for this package 
+    let rentCompMapURL = baseMapURL
+
+    for (let i=0; i < rentComps.length; i++) {
+      let comp = rentComps[i] 
+
+      if (comp.lat && comp.lng) {
+        rentCompMapURL += `&markers=color:blue%7Clabel:${i + 1}%7C${comp.lat},${comp.lng}`
+      }
+    }
+
+    // Sales comps map: pin for property + pins of a different color for all sold properties for this package
+    let salesCompMapURL = baseMapURL
+
+    for (let i=0; i < salesComps.length; i++) {
+      let comp = salesComps[i] 
+
+      if (comp.lat && comp.lng) {
+        salesCompMapURL += `&markers=color:blue%7Clabel:${i + 1}%7C${comp.lat},${comp.lng}`
+      }
+    }
+
+    rentCompMapURL += `&key=${MAPS_KEY}`
+    salesCompMapURL += `&key=${MAPS_KEY}`
+
+    pkg.salesCompMapURL = salesCompMapURL 
+    pkg.rentCompMapURL = rentCompMapURL 
+    return pkg
+  }
+}
+
+module.exports = { addCoordinatesToPackage, getImageURLs, addMapURLs }
