@@ -336,8 +336,6 @@ section {
   vertical-align: middle;
 }
 .map-holder img {
-  max-height: 90%;
-  max-width: 90%;
   display: block;
   margin: auto;
   vertical-align: middle;
