@@ -88,9 +88,26 @@
                                 <li><div class="left-column">RECENT SALES </div><span class="toc-page-num">Section 3</span></li>
                             {% endif %}
                             {% if valuation.rented_units.length != 0 %}
-                                <li><div class="left-column">RENT COMPARABLES </div><span class="toc-page-num">Section 4</span></li>
+                                <li><div class="left-column">RENT COMPARABLES </div>
+                                {% if valuation.sold_properties.length != 0 %}
+                                    <span class="toc-page-num">Section 4</span>
+                                {% else %}
+                                    <span class="toc-page-num">Section 3</span>
+                                {% endif %}
+                                </li>
                             {% endif %}
-                            <li><div class="left-column">PRICING AND FINANCIAL ANALYSIS </div><span class="toc-page-num">Section 5</span></li>
+                            <li><div class="left-column">PRICING AND FINANCIAL ANALYSIS </div>
+
+                            {% if valuation.sold_properties.length != 0 %}
+                                {% if valuation.rented_units.length != 0 %}
+                                    <span class="toc-page-num">Section 5</span>
+                                {% else %}
+                                    <span class="toc-page-num">Section 4</span>
+                                {% endif %}
+                            {% else %}
+                                <span class="toc-page-num">Section 3</span>
+                            {% endif %}
+                            </li>
                         </ul>
                     </div>
                     <div id="side-img" class="background side-img">
