@@ -60,6 +60,8 @@ async function addCoordinates(items) {
 }
 
 async function addCoordinatesToPackage(pkg) {
+  if (!MAPS_KEY) return Promise.resolve(pkg)
+
   try {
     if (pkg.property && pkg.property.address) {
         pkg.property = await addCoordinates([pkg.property])
@@ -80,6 +82,8 @@ async function addCoordinatesToPackage(pkg) {
 }
 
 function addMapURLs(pkg) {
+  if (!MAPS_KEY) return pkg
+
   let property = pkg.property[0]
   let rentComps = pkg.rented_units
   let salesComps = pkg.sold_properties

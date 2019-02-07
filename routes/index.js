@@ -52,7 +52,7 @@ router.get('/:packageId', function(req, res) {
       if (pkg && user) {
         helpers.addCoordinatesToPackage(pkg).then(pkg => {
           pkg = helpers.addMapURLs(pkg)
-          pkg.property = pkg.property[0]
+          pkg.property = pkg.property && pkg.property[0] ? pkg.property[0] : {}
           res.render('index', { valuation: pkg, user: user, images: helpers.getImageURLs(pkg)})
         }).catch((e) => {
           console.log(e)
