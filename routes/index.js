@@ -1,6 +1,7 @@
 let express = require('express')
 let request = require('request')
 let helpers = require('./../helpers.js')
+const puppeteer = require('puppeteer')
 
 let router = express.Router()
 
@@ -89,6 +90,22 @@ router.post('/api/saveImage', function (req, res) {
     }
     res.status(200).send('Image saved')
   })
+})
+
+router.get('/export/pdf/:id', function (req, res) {
+  (async () => {
+      const browser = await puppeteer.launch()
+      const page = await browser.newPage()
+
+      await page.goto(`http://localhost:4000/${req.params.id}`, {waitUntil: ['domcontentloaded', 'networkidle0', 'load']})
+      await page.waitFor('*')
+      const buffer = await page.pdf({format: 'Letter', landscape: true, printBackground: true})
+
+      res.type('application/pdf')
+      res.status(200).send(buffer)
+
+      browser.close()
+  })()
 })
 
 router.get('*', function(res) {

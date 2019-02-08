@@ -1,47 +1,15 @@
-const IMAGE_ENDPOINT = 'https://cre-backend-testing.herokuapp.com/api/saveImage'
+const IMAGE_ENDPOINT = 'https://cre-pdf-app.herokuapp.com/api/saveImage'
+// const PDF_ENDPOINT = 'http://localhost:4000/export/pdf'
+const PDF_ENDPOINT = 'https://cre-pdf-app.herokuapp.com/export/pdf'
 const CLOUDINARY_PRESET = ''
 const CLOUDINARY_UPLOAD_URL=''
 
-let doc = new jsPDF('l', 'in', [17, 22]);
-let sections = document.getElementsByTagName("SECTION");
-let tempPage = 0;
 let imgButtons = document.getElementsByClassName("image-upload");
 let imgInputs = document.getElementsByTagName("input");
-let needSpacing = document.getElementsByClassName('letter-spacer');
-
-function changeCSS(cssFile, cssLinkIndex) {
-
-    let oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
-    let newlink = document.createElement("link");
-
-    newlink.setAttribute("rel", "stylesheet");
-    newlink.setAttribute("type", "text/css");
-    newlink.setAttribute("href", `./stylesheets/${cssFile}`);
-
-    document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
-}
 
 function selectElementImage(button) {
     let input = document.getElementsByName(button.getAttribute("data-target"))[0];
     input.click();
-}
-
-//We need this as jsPDF doesn't render CSS3 Letter spacing. So we have to fake it.
-function addSpacing(elements) {
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].classList.add("no-letter-spacing");
-        elements[i].originalText = elements[i].innerHTML;
-        let renderedText = elements[i].innerHTML.trim();
-        elements[i].spacedText = renderedText.split('').join('&nbsp;');
-        elements[i].innerHTML = elements[i].spacedText;
-    }
-}
-
-function removeSpacing(elements) {
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].classList.remove("no-letter-spacing");
-        elements[i].innerHTML = elements[i].originalText;
-    }
 }
 
 function setImgUrl(input) {
@@ -67,7 +35,6 @@ function setImgUrl(input) {
         reader.readAsDataURL(file);
     }
 }
-
 
 // *********** Upload file to Cloudinary && save in DB ******************** //
 function upload(file, imageID) {
@@ -118,48 +85,31 @@ function saveImage(url, imageID) {
     req.send(JSON.stringify(body))
 }
 
-function toggle(className, displayState) {
-    let elements = document.getElementsByClassName(className)
-
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].style.display = displayState;
-    }
-}
-
-async function addPageAndCanvas() {
-    doc.addHTML(sections[tempPage], async function () {
-        if (tempPage < sections.length - 1) {
-            doc.addPage();
-            tempPage++;
-            addPageAndCanvas();
-        } else {
-            await sleep(2000);
-            doc.save('package.pdf');
-            changeCSS('html-preview.css', 0);
-            removeSpacing(needSpacing);
-            toggle('hide-on-save', 'block');
-            toggle('loader', 'none');
-        }
-    });
-}
-
 function savePDF() {
-    toggle('loader', 'block');
-    tempPage = 0;
-    toggle('hide-on-save', 'none');
-    doc = new jsPDF('l', 'in', [17, 22]);
-    changeCSS('pdf-render.css', 0);
-    addSpacing(needSpacing);
-    addPageAndCanvas();
+    const pathParts = window.location.href.split('/')
+    const packageID = pathParts[pathParts.length - 1]
+
+    let req = new XMLHttpRequest()
+    req.open('GET', `${PDF_ENDPOINT}/${packageID}`, true)
+    req.responseType= 'arraybuffer'
+
+    req.onreadystatechange = function (e) {
+        if (req.readyState === 4 && req.status === 200) {
+            // open file save dialog
+            var url = URL.createObjectURL(new Blob([req.response]))
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute('download', 'package.pdf')
+            document.body.appendChild(link)
+            link.click()
+        } else if (req.readyState === 4 && req.status !== 200) {
+            console.log(req)
+            console.log(`Failure`, req.statusText)
+        }
+    }
+    req.send()
 }
 
-function downloadPDF() {
-    doc.save('package.pdf');
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
   
 for (let i = 0; i < imgButtons.length; ++i) {
     imgButtons[i].addEventListener("click", function (button) {

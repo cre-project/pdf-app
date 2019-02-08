@@ -16,7 +16,20 @@
   .photos .photo {
     border: none !important;
   }
+  header {
+    display: none;
+  }
+
+  .html-preview {
+    margin: 0 !important;  
+    width: 11in; 
+  }
+
+  .fas {
+    display: none;
+  }
 }
+
 .no-letter-spacing {
   letter-spacing: 0px !important;
 }
@@ -31,7 +44,8 @@
   background-color: #ffffff;
 }
 .html-preview {
-  width: 11in;
+  width: 11in; 
+  margin-left: 250px;
 }
 .photos {
   padding: 15px 0px 0px 60px;
