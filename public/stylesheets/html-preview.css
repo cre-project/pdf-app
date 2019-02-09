@@ -466,7 +466,7 @@ section {
 .rent-rolls th {
   min-width: 19%;
   text-align: left;
-  font-size: 23px;
+  padding-bottom: 5px;
 }
 .rent-rolls tr:nth-child(odd) {
   background-color: #c7c7c7;
@@ -475,8 +475,6 @@ section {
   /* padding: 2px 0px 2px 10px; */
   padding-top: 5px;
   padding-bottom: 5px;
-  font-size: 20px;
-  line-height: 20px;
 }
 .rent-rolls thead tr:nth-child(odd) {
   background-color: transparent;
@@ -552,9 +550,6 @@ section {
 .financial-holder table {
   width: 100%;
   border-spacing: 0;
-}
-.financial-holder table tr {
-  line-height: 20px;
 }
 .financial-holder .table-title {
   border-bottom: 1px solid #000000;
