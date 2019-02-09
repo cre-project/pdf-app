@@ -8,4 +8,4 @@
    * `PORT` - defaults to `4000`
    * `DASHBOARD_URL` - defaults to `localhost:8080` - has to be set to allow embedding pdf in an iframe on the dashboard
    * `API_URL` - defaults to `localhost:3000/api`
-   
+   * `BACKEND_API_KEY` - required to save images 

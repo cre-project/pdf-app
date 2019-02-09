@@ -8,6 +8,7 @@ let router = express.Router()
 /** Env variables */
 const API_URL = process.env.API_URL || 'http://localhost:3000/api'
 const BACKEND_API_KEY = process.env.BACKEND_API_KEY || 'xxx'
+const PDF_APP_URL = process.env.PDF_APP_URL || 'http://localhost:4000'
 
 /** Mapping image IDS -> DB columns */
 const IMAGE_IDS = {
@@ -92,23 +93,27 @@ router.post('/api/saveImage', function (req, res) {
   })
 })
 
-router.get('/export/pdf/:id', function (req, res) {
-  (async () => {
-      const browser = await puppeteer.launch()
-      const page = await browser.newPage()
+router.get('/export/pdf/:id', async function (req, res) {
+  const browser = await puppeteer.launch({
+    args: [
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--single-process',
+      '--no-sandbox']
+  })
+    const page = await browser.newPage()
 
-      await page.goto(`http://localhost:4000/${req.params.id}`, {waitUntil: ['domcontentloaded', 'networkidle0', 'load']})
-      await page.waitFor('*')
-      const buffer = await page.pdf({format: 'Letter', landscape: true, printBackground: true})
+    await page.goto(`${PDF_APP_URL}/${req.params.id}`, {waitUntil: ['domcontentloaded', 'networkidle0', 'load']})
+    await page.waitFor('*')
+    const buffer = await page.pdf({format: 'Letter', landscape: true, printBackground: true})
 
-      res.type('application/pdf')
-      res.status(200).send(buffer)
+    res.type('application/pdf')
+    res.status(200).send(buffer)
 
-      browser.close()
-  })()
+    browser.close()
 })
 
-router.get('*', function(res) {
+router.get('*', function(req, res) {
   res.status(200)
 })
 

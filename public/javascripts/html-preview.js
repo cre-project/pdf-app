@@ -90,6 +90,7 @@ function savePDF() {
     const packageID = pathParts[pathParts.length - 1]
 
     let req = new XMLHttpRequest()
+    req.timeout = 60000;
     req.open('GET', `${PDF_ENDPOINT}/${packageID}`, true)
     req.responseType= 'arraybuffer'
 
