@@ -8,6 +8,7 @@
   "dependencies": {
     "@google/maps": "^0.5.5",
     "compression": "^1.7.3",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "frameguard": "^3.0.0",

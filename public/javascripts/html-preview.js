@@ -85,33 +85,6 @@ function saveImage(url, imageID) {
     req.send(JSON.stringify(body))
 }
 
-function savePDF() {
-    const pathParts = window.location.href.split('/')
-    const packageID = pathParts[pathParts.length - 1]
-
-    let req = new XMLHttpRequest()
-    req.timeout = 60000;
-    req.open('GET', `${PDF_ENDPOINT}/${packageID}`, true)
-    req.responseType= 'arraybuffer'
-
-    req.onreadystatechange = function (e) {
-        if (req.readyState === 4 && req.status === 200) {
-            // open file save dialog
-            var url = URL.createObjectURL(new Blob([req.response]))
-            const link = document.createElement('a')
-            link.href = url
-            link.setAttribute('download', 'package.pdf')
-            document.body.appendChild(link)
-            link.click()
-        } else if (req.readyState === 4 && req.status !== 200) {
-            console.log(req)
-            console.log(`Failure`, req.statusText)
-        }
-    }
-    req.send()
-}
-
-  
 for (let i = 0; i < imgButtons.length; ++i) {
     imgButtons[i].addEventListener("click", function (button) {
         selectElementImage(this)
