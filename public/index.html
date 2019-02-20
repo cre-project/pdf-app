@@ -356,7 +356,7 @@
                                             <td>{{ loop.index }}</td>
                                             <td>{{ unit.bedrooms }} bed, {{ unit.bathrooms }} bath</td>
                                             <td>{{ unit.bathrooms }}</td>
-                                            <td>{{ unit.current_rent }}</td>
+                                            <td>{{ unit.current_rent | money }}</td>
                                             <td>{{ unit.potential_rent if unit.potential_rent != null }}</td>
                                         </tr>
                         {% if loop.index % 23 == 0 %}
