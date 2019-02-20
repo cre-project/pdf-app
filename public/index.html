@@ -339,7 +339,12 @@
                         {% set lastIndexP = loop.index %}
                         {% if loop.index % 23 == 1 %}
                             <section class="page page-13">
-                                <div class="title transparent">RENT ROLL</div>
+                                <div style="display:flex; justify-content: space-between;">
+                                    <div class="title transparent">RENT ROLL</div>
+                                    <div style="margin-top: 3.5em; margin-right: 2em;">
+                                        Total SqFt: {{ valuation.property.total_square_feet }}
+                                    </div>
+                                </div>
                                 <table class="rent-rolls" >
                                     <thead>
                                         <tr>

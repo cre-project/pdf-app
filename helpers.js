@@ -64,7 +64,7 @@ async function addCoordinatesToPackage(pkg) {
 
   try {
     if (pkg.property && pkg.property.address) {
-        pkg.property = await addCoordinates([pkg.property])
+        pkg.property = await addCoordinates([pkg.property])[0]
     }
     // add coordinates to rent comps
     if (pkg.rented_units) { 
