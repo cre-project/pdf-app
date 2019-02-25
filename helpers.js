@@ -60,11 +60,11 @@ async function addCoordinates(items) {
 }
 
 async function addCoordinatesToPackage(pkg) {
-  if (!MAPS_KEY) return Promise.resolve(pkg)
+  if (!MAPS_KEY) return Promise.resolve([pkg])
 
   try {
     if (pkg.property && pkg.property.address) {
-        pkg.property = await addCoordinates([pkg.property])[0]
+      pkg.property = await addCoordinates([pkg.property])
     }
     // add coordinates to rent comps
     if (pkg.rented_units) { 
@@ -123,4 +123,14 @@ function addMapURLs(pkg) {
   }
 }
 
-module.exports = { addCoordinatesToPackage, getImageURLs, addMapURLs }
+function calculateValues(pkg) {
+  if (pkg.property_units) {
+    pkg.property_units.forEach(unit => {
+      unit.unitType = (unit.bedrooms && unit.bedrooms === 0 || !unit.bedrooms) ? 'Studio' : `${unit.bedrooms} bed`
+    })
+  }
+
+  return pkg
+}
+
+module.exports = { calculateValues, addCoordinatesToPackage, getImageURLs, addMapURLs }

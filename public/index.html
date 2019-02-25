@@ -310,7 +310,7 @@
                                     <ul class="item-list">
                                         <li>Year Built: <div class="data-right">{{ comp.year_built if comp.year_built != null }}</div>
                                         </li>
-                                        <li>Unit Type: <div class="data-right">{{ comp.bedrooms + ' bed' if comp.bedrooms != null }}, {{ comp.bathrooms + ' bath' if comp.bathrooms != null }}</div>
+                                        <li>Unit Type: <div class="data-right">{{ comp.unitType }}, {{ comp.bathrooms + ' bath' if comp.bathrooms != null }}</div>
                                         </li>
                                         <li>Rent: <div class="data-right">{{ comp.current_rent if comp.current_rent != null | money }}</div>
                                         </li>
@@ -358,7 +358,7 @@
                         {% endif %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
-                                            <td>{{ unit.bedrooms }} bed, {{ unit.bathrooms }} bath</td>
+                                            <td>{{ unit.unitType }}, {{ unit.bathrooms }} bath</td>
                                             <td>{{ unit.current_rent | money }}</td>
                                             <td>{{ unit.potential_rent if unit.potential_rent != null | money }}</td>
                                         </tr>
