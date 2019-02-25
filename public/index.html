@@ -342,7 +342,7 @@
                                 <div style="display:flex; justify-content: space-between;">
                                     <div class="title transparent">RENT ROLL</div>
                                     <div style="margin-top: 3.5em; margin-right: 2em;">
-                                        Total SqFt: {{ valuation.property.total_square_feet }}
+                                        Total SqFt: {{ valuation.property.total_square_feet if valuation.property.total_square_feet else 0 }}
                                     </div>
                                 </div>
                                 <table class="rent-rolls" >
